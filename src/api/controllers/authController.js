@@ -84,12 +84,13 @@ passport.use(new JwtStrategy({
 exports.registerUser = async(req, res) => {
 
     try {
-        let { password, email, fullname } = req.body;
+        let { password, email, fullname, username } = req.body;
         // Pārbauda vai request.body ir nepieciešamie lauciņi lietotāja profila izveidei
         if(
             !email ||
             !password ||
-            !fullname
+            !fullname ||
+            !username
         ) {
             return res.status(400).send({error: true, message: 'Viens vai vairāki lauciņi nav aizpildīti'})
         }
@@ -102,27 +103,24 @@ exports.registerUser = async(req, res) => {
         })
         if (user) {
             return res.status(409).send({
-                error: true,
                 message: 'Lietotājs ar šādu E-Pasta adresi jau eksistē.'
             })
         }
 
-        // Šifrē paroli
         const hash = await bcrypt.hash(password, 10)
-        console.log(hash)
-
 
         const newUser = await prisma.users.create({
             data: {
                 email: email,
                 password: hash,
-                fullname: fullname
+                fullname: fullname,
+                username: username
             },
         })
         if(newUser) {
-            return res.status(200).send({error: false, message: 'Lietotāja profils izveidots!'})
+            return res.status(200).send({message: 'Lietotāja profils izveidots!'})
         } else {
-            return res.status(500).send({error: true, message: 'Notika kļūda izveidojot profilu.'})
+            return res.status(500).send({message: 'Notika kļūda izveidojot profilu.'})
         }
     } catch (error) {
         console.log(error)

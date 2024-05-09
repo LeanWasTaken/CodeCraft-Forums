@@ -24,7 +24,10 @@ app.use(bodyParser.json())
 
 const authRouter = require('./routers/authRouter.js');
 
+const commentRouter = require('./routers/commentRouter.js')
+
 app.use('/api/auth', authRouter);
+app.use('/api/comments', commentRouter);
 
 const PORT = 8008;
 
