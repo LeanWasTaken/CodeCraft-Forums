@@ -21,6 +21,9 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+const authenticated = ref(false)
+
 const dropdownItems = [
   { text: 'Profile' },
   { text: 'Settings' },

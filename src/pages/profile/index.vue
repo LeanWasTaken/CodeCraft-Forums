@@ -1,0 +1,4 @@
+<template>
+    <ProfileInfo />
+    <ProfileButtonBar />
+</template>
