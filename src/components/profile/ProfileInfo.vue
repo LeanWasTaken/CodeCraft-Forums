@@ -1,14 +1,22 @@
 <template>
   <v-container class="container">
     <v-card class="profile-info" elevation="3" rounded="lg">
-      <v-row>
-        <v-list-item
-          class="profile-main-info"
-          subtitle="views count"
-          title="Profile name"
-        ></v-list-item>
-        <v-btn class="edit-btn">EDIt</v-btn>
-      </v-row>
+            <v-card-title class="profile-title">
+          <v-row class="justify-space-between py-1 px-4">
+            <v-list-item
+                  
+                  subtitle="views count"
+                  title="Profile name"
+                >
+                    </v-list-item>
+                    <v-list-item class="my-1 pa-1">
+                <v-btn class="edit-btn ma-1"
+                        variant=text>EDIT PROFILE</v-btn>
+                    </v-list-item>
+          </v-row>
+                
+                
+            </v-card-title>
       <v-img
         class="align-end text-white"
         height="200"
@@ -59,19 +67,14 @@
 }
 
 .profile-main-info {
-  max-height: 50px;
-  font-size: 10px;
-  padding-top: 5px;
-  padding-left: 60px;
-  font-weight: 300;
+    max-height: 50px;
+    font-size: 10px;
+    font-weight: 300;
 }
 
 .profile-info {
-  max-width: 900px;
-  font-weight: 300;
+    font-weight: 300;
 }
 
-.edit-btn {
-  margin-left: 30px;
-}
+
 </style>
