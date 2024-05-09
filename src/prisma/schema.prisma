@@ -7,107 +7,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Define the model for countries
-model Countries {
-  id   String @id @default(uuid()) @db.VarChar(40)
-  name String @unique @db.VarChar(100)
-
-  // Define a relation to users
-  users Users[]
-}
-
+// Define the model for users
 model Users {
-  id              String         @id @default(uuid()) @db.VarChar(40)
-  email           String         @unique @db.VarChar(64)
-  full_name       String?        @db.VarChar(50)
-  password        String         @db.VarChar(128)
-  country         Countries?       @relation(fields: [countryId], references: [id])
-  countryId       String?        @db.VarChar(40)
-  date_registered DateTime       @default(now()) @db.DateTime(0)
-  UserProgress    UserProgress[]
-  UserReward      UserReward[]
+  id          String    @id @default(uuid())
+  fullname    String
+  username    String    @unique
+  email       String    @unique
+  password    String
+  createdAt   DateTime  @default(now())
+  // Define a relation to posts created by the user
+  posts       Posts[]
+  // Define a relation to comments created by the user
+  comments    Comments[]
 }
 
-// Define the model for languages
-model Languages {
-  id          String   @id @default(uuid()) @db.VarChar(40)
-  name        String   @unique @db.VarChar(50)
-  description String?  @db.VarChar(255)
-  icon        String?  @db.VarChar(255)
-  createdAt   DateTime @default(now()) @db.DateTime(0)
-
-  // Define a relation to courses
-  courses Courses[]
+// Define the model for topics
+model Topics {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  createdAt   DateTime  @default(now())
+  // Define a relation to posts under this topic
+  posts       Posts[]
 }
 
-// Define the model for courses/lessons
-model Courses {
-  id          String   @id @default(uuid()) @db.VarChar(40)
-  name        String   @db.VarChar(100)
-  description String?  @db.VarChar(255)
-  difficulty  Int      @db.Int
-  language    Languages @relation(fields: [languageId], references: [id])
-  languageId  String   @db.VarChar(40)
-
-  // Define a relation to units
-  units        Units[]
-  UserProgress UserProgress[]
+// Define the model for posts
+model Posts {
+  id          String    @id @default(uuid())
+  title       String
+  content     String
+  type        PostType  // Enum representing different post types
+  createdAt   DateTime  @default(now())
+  // Define a relation to the user who created the post
+  author      Users      @relation(fields: [authorId], references: [id])
+  authorId    String
+  // Define a relation to the topic this post belongs to
+  topic       Topics     @relation(fields: [topicId], references: [id])
+  topicId     String
+  // Define a relation to comments under this post
+  comments    Comments[]
 }
 
-// Define the model for units
-model Units {
-  id          String  @id @default(uuid()) @db.VarChar(40)
-  name        String  @db.VarChar(100)
-  description String? @db.VarChar(255)
-  courseId    String  @db.VarChar(40)
-  course      Courses  @relation(fields: [courseId], references: [id])
-
-  // Define a relation to tasks
-  tasks        Tasks[]
-  UserProgress UserProgress[]
+// Define the model for comments
+model Comments {
+  id          String    @id @default(uuid())
+  content     String
+  type        CommentType  // Enum representing different comment types
+  createdAt   DateTime  @default(now())
+  // Define a relation to the user who created the comment
+  author      Users      @relation(fields: [authorId], references: [id])
+  authorId    String
+  // Define a relation to the post this comment belongs to
+  post        Posts      @relation(fields: [postId], references: [id])
+  postId      String
+  // Define a relation to replies (sub-comments) under this comment
+  replies     Comments[] @relation("ReplyTo")
+  // Define a relation to the parent comment if this comment is a reply
+  parent      Comments?  @relation("ReplyTo", fields: [parentId], references: [id])
+  parentId    String?
 }
 
-// Define the model for tasks/exercises
-model Tasks {
-  id             String @id @default(uuid()) @db.VarChar(40)
-  type           String @db.VarChar(50)
-  description    String @db.VarChar(255)
-  correctAnswers Json?  @db.Json // Store multiple correct answers as JSON
-  unitId         String @db.VarChar(40)
-  unit           Units   @relation(fields: [unitId], references: [id])
+// Enum for representing different types of posts
+enum PostType {
+  TEXT
+  IMAGE
+  CODE
+  TEXT_WITH_IMAGE
+  TEXT_WITH_CODE
 }
 
-// Define the model for user progress
-model UserProgress {
-  id                String   @id @default(uuid()) @db.VarChar(40)
-  user              Users     @relation(fields: [userId], references: [id])
-  userId            String   @db.VarChar(40)
-  course            Courses   @relation(fields: [courseId], references: [id])
-  courseId          String   @db.VarChar(40)
-  unit              Units     @relation(fields: [unitId], references: [id])
-  unitId            String   @db.VarChar(40)
-  lastCompletedTask String?  @db.VarChar(40)
-  score             Int?     @db.Int
-  createdAt         DateTime @default(now()) @db.DateTime(0)
-}
-
-// Define the model for rewards
-model Rewards {
-  id          String       @id @default(uuid()) @db.VarChar(40)
-  name        String       @db.VarChar(100)
-  description String?      @db.VarChar(255)
-  cost        Int?         @db.Int
-  createdAt   DateTime     @default(now()) @db.DateTime(0)
-  UserReward  UserReward[]
-}
-
-// Define the model for user rewards
-model UserReward {
-  id        String   @id @default(uuid()) @db.VarChar(40)
-  user      Users     @relation(fields: [userId], references: [id])
-  userId    String   @db.VarChar(40)
-  reward    Rewards   @relation(fields: [rewardId], references: [id])
-  rewardId  String   @db.VarChar(40)
-  status    String   @db.VarChar(20) // e.g., redeemed or not
-  createdAt DateTime @default(now()) @db.DateTime(0)
+// Enum for representing different types of comments
+enum CommentType {
+  TEXT
+  IMAGE
+  CODE
 }

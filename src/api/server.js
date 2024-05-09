@@ -26,7 +26,7 @@ const authRouter = require('./routers/authRouter.js');
 
 app.use('/api/auth', authRouter);
 
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = 8008;
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

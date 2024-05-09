@@ -116,7 +116,7 @@ exports.registerUser = async(req, res) => {
             data: {
                 email: email,
                 password: hash,
-                full_name: fullname
+                fullname: fullname
             },
         })
         if(newUser) {
@@ -155,7 +155,7 @@ exports.loginUser = async (req, res, next) => {
 };
 
 exports.getLoggedInUser = async (req, res) => {
-    passport.authenticate('jwt', { session: false }, (error, user, message) => {
+    passport.authenticate('jwt', { session: false }, (error, user) => {
         if (error) {
           return res.status(500).json({ message: `Notika kļūda: ${error.message}`, })
         } else if (!user) {
