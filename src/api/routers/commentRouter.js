@@ -6,7 +6,7 @@ const commentController = require('../controllers/commentController.js');
 router.post('/', commentController.createComment);
 
 // Deletes a comment
-router.delete('/', commentController.deleteComment)
+router.delete('/', commentController.deleteComment);
 
 // Gets comments by post ID
 router.get('/:postId', commentController.getCommentsByPostId);

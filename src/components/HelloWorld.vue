@@ -1,9 +1,6 @@
 <template>
   <v-container class="fill-height">
-    <v-responsive
-      class="align-centerfill-height mx-auto"
-      max-width="1440"
-    >
+    <v-responsive class="align-centerfill-height mx-auto" max-width="1440">
       <div class="text-center">
         <div class="text-body-1 font-weight-medium mb-n1">Welcome to</div>
 
@@ -23,10 +20,7 @@
             rounded="lg"
             variant="text"
           >
-            <v-img
-              cover
-              src="/group.png"
-            ></v-img>
+            <v-img cover src="/group.png"></v-img>
           </v-card>
         </v-col>
 
@@ -38,8 +32,9 @@
             target="_blank"
             variant="text"
           >
-            
-            <v-card-title class="text-center">What's currently happening</v-card-title>
+            <v-card-title class="text-center"
+              >What's currently happening</v-card-title
+            >
             <div class="my-5" />
 
             <div class="pa-4">
