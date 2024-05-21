@@ -71,13 +71,9 @@ import ProfileEdit from './ProfileEdit.vue';
 
 .profile-bio {
   margin-left: 20px;
+  margin-bottom: 15px;
   font-weight: 300;
-}
-
-.profile-bio {
-  margin-left: 20px;
-  padding: 10px;
-  font-weight: 300;
+  padding-right: 10px;
 }
 
 .profile-main-info {
