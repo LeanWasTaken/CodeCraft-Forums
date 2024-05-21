@@ -16,16 +16,27 @@
           <v-text-field label="Title" required></v-text-field>
           <v-text-field label="Post"></v-text-field>
           <v-autocomplete
-            :items="['Crypto', 'Web', 'Data bases', 'SQL', 'Python', 'GPT', 'AI', 'Coding', 'Jobs']"
+            :items="[
+              'Crypto',
+              'Web',
+              'Data bases',
+              'SQL',
+              'Python',
+              'GPT',
+              'AI',
+              'Coding',
+              'Jobs',
+            ]"
             label="Topic"
-            auto-select-first>
+            auto-select-first
+          >
           </v-autocomplete>
-      </v-card-text>
-      
-      <v-row class="add-btns">
+        </v-card-text>
+
+        <v-row class="add-btns">
           <v-btn icon="mdi-image" class="add-image-btn"></v-btn>
           <v-btn icon="mdi-code-tags" class="add-code-btn"></v-btn>
-      </v-row>
+        </v-row>
 
         <v-divider></v-divider>
 
@@ -78,7 +89,6 @@
 .add-btns > * {
   margin-bottom: 30px;
 }
-
 </style>
 <script>
 export default {

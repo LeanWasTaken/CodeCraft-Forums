@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
+//Layouts
 import DefaultLayout from '@/layouts/default.vue';
+import HomeLayout from '@/layouts/HomeLayout.vue';
+
 import LandingPage from '@/pages/index.vue';
 import AuthLogin from '@/pages/auth/login.vue';
 import AuthRegister from '@/pages/auth/register.vue';
 import Profile from '@/pages/profile/index.vue';
 import authMiddleware from '@/middleware/auth';
 import { useAuthStore } from '@/stores/auth';
+import HomePage from '@/pages/home/index.vue';
 
 const routes = [
   {
@@ -16,6 +21,17 @@ const routes = [
         path: '',
         name: 'Landing',
         component: LandingPage,
+      },
+    ],
+  },
+  {
+    path: '/home',
+    component: HomeLayout,
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: HomePage,
       },
     ],
   },
@@ -60,7 +76,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  document.title = to.meta.title ? 'CodeCraft | ' + to.meta.title : "CodeCraft"
+  document.title = to.meta.title ? 'CodeCraft | ' + to.meta.title : 'CodeCraft';
 
   const authStore = useAuthStore();
 

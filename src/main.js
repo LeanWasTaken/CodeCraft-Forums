@@ -1,4 +1,3 @@
-
 import { registerPlugins } from '@/plugins';
 import { useAuthStore } from './stores/auth';
 

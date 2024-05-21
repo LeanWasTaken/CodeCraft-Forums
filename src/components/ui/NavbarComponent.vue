@@ -11,7 +11,9 @@
         <v-btn to="/auth/login"><p>Get Started!</p></v-btn>
       </div>
       <div v-else>
-        <v-btn text @click="navigateToProfile">{{ authStore.user.username }}</v-btn>
+        <v-btn text @click="navigateToProfile">{{
+          authStore.user.username
+        }}</v-btn>
         <v-btn text @click="logout">Log Out</v-btn>
       </div>
     </template>

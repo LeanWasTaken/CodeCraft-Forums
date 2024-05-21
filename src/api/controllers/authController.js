@@ -158,8 +158,8 @@ exports.loginUser = async (req, res, next) => {
         id: user.id,
         name: user.fullname,
         username: user.username,
-        email: user.email
-      }
+        email: user.email,
+      },
     });
   })(req, res, next);
 };
@@ -175,14 +175,14 @@ exports.getLoggedInUser = async (req, res) => {
         message: 'Nav lietotāja.',
       });
     } else {
-      console.log("Token seems to be valid, sending back data")
+      console.log('Token seems to be valid, sending back data');
       return res.status(200).json({
         user: {
           id: user.id,
           name: user.fullname,
           username: user.username,
           email: user.email,
-        }
+        },
       });
     }
   })(req, res);

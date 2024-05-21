@@ -7,11 +7,14 @@ export const useAuthStore = defineStore('auth', {
     user: JSON.parse(localStorage.getItem('user')) || null,
   }),
   getters: {
-    isAuthenticated: (state) => !!state.token,
+    isAuthenticated: state => !!state.token,
   },
   actions: {
     async login(credentials) {
-      const response = await axios.post('http://localhost:8008/api/auth/login', credentials);
+      const response = await axios.post(
+        'http://localhost:8008/api/auth/login',
+        credentials,
+      );
       this.token = response.data.token;
       this.user = response.data.user;
       localStorage.setItem('token', this.token);
