@@ -7,66 +7,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Define the model for users
 model Users {
-  id          String    @id @default(uuid())
-  fullname    String
-  username    String    @unique
-  email       String    @unique
-  password    String
-  createdAt   DateTime  @default(now())
-  // Define a relation to posts created by the user
-  posts       Posts[]
-  // Define a relation to comments created by the user
-  comments    Comments[]
+  id                                   String      @id @default(uuid())
+  fullname                             String
+  username                             String      @unique
+  email                                String      @unique
+  password                             String
+  createdAt                            DateTime    @default(now())
+  comments                             Comments[]
+  Following_Following_followerToUsers  Following[] @relation("Following_followerToUsers")
+  Following_Following_followingToUsers Following[] @relation("Following_followingToUsers")
+  posts                                Posts[]
 }
 
-// Define the model for topics
 model Topics {
-  id          String    @id @default(uuid())
-  name        String    @unique
-  createdAt   DateTime  @default(now())
-  // Define a relation to posts under this topic
-  posts       Posts[]
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  posts     Posts[]
 }
 
-// Define the model for posts
 model Posts {
-  id          String    @id @default(uuid())
-  title       String
-  content     String
-  type        PostType  // Enum representing different post types
-  createdAt   DateTime  @default(now())
-  // Define a relation to the user who created the post
-  author      Users      @relation(fields: [authorId], references: [id])
-  authorId    String
-  // Define a relation to the topic this post belongs to
-  topic       Topics     @relation(fields: [topicId], references: [id])
-  topicId     String
-  // Define a relation to comments under this post
-  comments    Comments[]
+  id        String     @id @default(uuid())
+  title     String
+  content   String
+  type      PostType
+  createdAt DateTime   @default(now())
+  authorId  String
+  topicId   String
+  comments  Comments[]
+  author    Users      @relation(fields: [authorId], references: [id])
+  topic     Topics     @relation(fields: [topicId], references: [id])
+
+  @@index([authorId], map: "Posts_authorId_fkey")
+  @@index([topicId], map: "Posts_topicId_fkey")
 }
 
-// Define the model for comments
 model Comments {
-  id          String    @id @default(uuid())
-  content     String
-  type        CommentType  // Enum representing different comment types
-  createdAt   DateTime  @default(now())
-  // Define a relation to the user who created the comment
-  author      Users      @relation(fields: [authorId], references: [id])
-  authorId    String
-  // Define a relation to the post this comment belongs to
-  post        Posts      @relation(fields: [postId], references: [id])
-  postId      String
-  // Define a relation to replies (sub-comments) under this comment
-  replies     Comments[] @relation("ReplyTo")
-  // Define a relation to the parent comment if this comment is a reply
-  parent      Comments?  @relation("ReplyTo", fields: [parentId], references: [id])
-  parentId    String?
+  id        String      @id @default(uuid())
+  content   String
+  type      CommentType
+  createdAt DateTime    @default(now())
+  authorId  String
+  postId    String
+  parentId  String?
+  author    Users       @relation(fields: [authorId], references: [id])
+  parent    Comments?   @relation("ReplyTo", fields: [parentId], references: [id])
+  replies   Comments[]  @relation("ReplyTo")
+  post      Posts       @relation(fields: [postId], references: [id])
+
+  @@index([authorId], map: "Comments_authorId_fkey")
+  @@index([parentId], map: "Comments_parentId_fkey")
+  @@index([postId], map: "Comments_postId_fkey")
 }
 
-// Enum for representing different types of posts
+model Following {
+  ID               String           @id @default(uuid())
+  follower         String
+  following        String
+  status           Following_status @default(waiting)
+  followedAt       DateTime         @default(now()) @db.DateTime(0)
+  followerToUsers  Users            @relation("Following_followerToUsers", fields: [follower], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Following_ibfk_1")
+  followingToUsers Users            @relation("Following_followingToUsers", fields: [following], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Following_ibfk_2")
+
+  @@index([follower, following], map: "follower")
+  @@index([following], map: "following")
+}
+
 enum PostType {
   TEXT
   IMAGE
@@ -75,9 +82,13 @@ enum PostType {
   TEXT_WITH_CODE
 }
 
-// Enum for representing different types of comments
 enum CommentType {
   TEXT
   IMAGE
   CODE
+}
+
+enum Following_status {
+  waiting
+  approved
 }

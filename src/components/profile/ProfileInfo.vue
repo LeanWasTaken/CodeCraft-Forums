@@ -39,7 +39,7 @@ import ProfileEdit from './ProfileEdit.vue';
         title="Profile name"
       ></v-list-item>
       <p class="profile-bio">Clothes make the man. Naked people have little or no influence in society.</p>
-      <v-row class="followers">
+      <v-row class="followers py-2">
         <p>Following X</p>
         <p>Followers Y</p>
       </v-row>
@@ -50,7 +50,7 @@ import ProfileEdit from './ProfileEdit.vue';
 
 <style scoped>
 .followers > * {
-  padding: 10px;
+  padding-right: 10px;
 }
 
 .profile-name {
@@ -66,7 +66,11 @@ import ProfileEdit from './ProfileEdit.vue';
 
 .followers {
   margin-left: 20px;
-  padding: 10px;
+  font-weight: 300;
+}
+
+.profile-bio {
+  margin-left: 20px;
   font-weight: 300;
 }
 

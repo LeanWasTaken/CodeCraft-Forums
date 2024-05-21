@@ -5,7 +5,6 @@ exports.createComment = async (req, res) => {
   try {
     const { content, postId, userId } = req.body;
 
-    // Check if the post exists
     const post = await prisma.posts.findUnique({
       where: {
         id: postId,
@@ -16,7 +15,6 @@ exports.createComment = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' });
     }
 
-    // Create the comment
     const comment = await prisma.comments.create({
       data: {
         content,
@@ -80,5 +78,3 @@ exports.getCommentsByPostId = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
-
-// Other comment-related controller functions can be added as needed
