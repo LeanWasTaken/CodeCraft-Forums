@@ -26,21 +26,24 @@
                 src="https://i.pinimg.com/736x/57/87/39/578739480ca0069cceb40b5034dfb3c5.jpg"
                 cover
             >
+            <v-row class="justify-space-between">
                 <v-avatar class="avatar" color="surface-variant" size="120">
                 <v-img
                     src="https://www.intentional-collective.com/wp-content/uploads/2021/03/120450684_4003220729694135_3695653168839154084_n.jpg"
-                    cover
-                ></v-img
+                    cover>
+                    <v-col cols="auto">
+                        <v-btn class="edit-pic-btn" icon="mdi-image-edit-outline" size="large"></v-btn>
+                    </v-col>
+                </v-img
                 ></v-avatar>
+                <v-col cols="auto">
+                    <v-btn class="edit-bg-btn" icon="mdi-image-edit-outline" size="large"></v-btn>
+                </v-col>
+            </v-row>
             </v-img>
 
                 <v-text-field
                   label="Name"
-                  required
-                ></v-text-field>
-
-                <v-text-field
-                  label="Usename"
                   required
                 ></v-text-field>
 
@@ -75,8 +78,8 @@
 <style>
 
 .avatar {
-  margin-left: 20px;
-  margin-top: 35px;
+  margin-left: 30px;
+  margin-top: 45px;
   border: white 5px solid;
 }
 
@@ -85,11 +88,23 @@
 }
 
 .profile-bg {
-    color: white;
+    color: rgb(253, 241, 241);
     align-self: self-end;
     margin-bottom: 10px;
 }
 
+.edit-pic-btn {
+    margin-top: 15px;
+    opacity: 50%;
+    color: black;
+}
+
+.edit-bg-btn {
+    margin-top: 65px;
+    margin-right: 200px;
+    opacity: 50%;
+    color: black;
+}
 
 </style>
   <script>

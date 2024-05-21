@@ -5,21 +5,17 @@ import ProfileEdit from './ProfileEdit.vue';
 <template>
   <v-container class="container">
     <v-card class="profile-info" elevation="3" rounded="lg">
-            <v-card-title class="profile-title">
+        <v-card-title class="profile-title">
           <v-row class="justify-space-between py-1 px-4">
             <v-list-item
-                  
-                  subtitle="views count"
-                  title="Profile name"
-                >
-                    </v-list-item>
-                    <v-list-item class="my-1 pa-1">
-                      <ProfileEdit />
-                    </v-list-item>
+                subtitle="views count"
+                title="Profile name">
+            </v-list-item>
+            <v-list-item class="my-1 pa-1">
+              <ProfileEdit />
+            </v-list-item>
           </v-row>
-                
-                
-            </v-card-title>
+        </v-card-title>
       <v-img
         class="align-end text-white"
         height="200"
@@ -76,16 +72,9 @@ import ProfileEdit from './ProfileEdit.vue';
   padding-right: 10px;
 }
 
-.profile-main-info {
-    max-height: 50px;
-    font-size: 10px;
-    font-weight: 300;
-}
-
 .profile-info {
     font-weight: 300;
 }
-
 
 </style>
 

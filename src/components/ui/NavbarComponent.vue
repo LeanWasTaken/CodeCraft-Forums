@@ -1,10 +1,10 @@
 <template>
   <v-app-bar>
     <v-app-bar-title>
-      <p class="logo">
+      <a class="logo" href="/">
         <span class="blue-text">Code</span>
         <span class="yellow-text">Craft</span>
-      </p>
+      </a>
     </v-app-bar-title>
 
     <template v-slot:append>
