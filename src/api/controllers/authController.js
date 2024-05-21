@@ -154,6 +154,12 @@ exports.loginUser = async (req, res, next) => {
     });
     res.status(200).json({
       token: token,
+      user: {
+        id: user.id,
+        name: user.fullname,
+        username: user.username,
+        email: user.email
+      }
     });
   })(req, res, next);
 };
@@ -169,11 +175,14 @@ exports.getLoggedInUser = async (req, res) => {
         message: 'Nav lietotāja.',
       });
     } else {
+      console.log("Token seems to be valid, sending back data")
       return res.status(200).json({
-        id: user.id,
-        name: user.first_name,
-        surname: user.last_name,
-        email: user.email,
+        user: {
+          id: user.id,
+          name: user.fullname,
+          username: user.username,
+          email: user.email,
+        }
       });
     }
   })(req, res);

@@ -1,37 +1,42 @@
-// stores/auth.js
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null,
-    token: localStorage.getItem('token') || null,
+    token: localStorage.getItem('token') || '',
+    user: JSON.parse(localStorage.getItem('user')) || null,
   }),
+  getters: {
+    isAuthenticated: (state) => !!state.token,
+  },
   actions: {
-    async login(email, password) {
-      try {
-        const response = await axios.post(
-          'http://localhost:8008/api/auth/login',
-          {
-            email,
-            password,
-          },
-        );
-        this.token = response.data.token;
-        localStorage.setItem('token', this.token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
-      } catch (error) {
-        throw new Error(error.response.data.message || 'Login failed');
-      }
+    async login(credentials) {
+      const response = await axios.post('http://localhost:8008/api/auth/login', credentials);
+      this.token = response.data.token;
+      this.user = response.data.user;
+      localStorage.setItem('token', this.token);
+      localStorage.setItem('user', JSON.stringify(this.user));
     },
     logout() {
+      this.token = '';
       this.user = null;
-      this.token = null;
       localStorage.removeItem('token');
-      delete axios.defaults.headers.common['Authorization'];
+      localStorage.removeItem('user');
     },
-  },
-  getters: {
-    isAuthenticated: state => !!state.token,
+    async checkAuth() {
+      if (this.token) {
+        try {
+          const response = await axios.get('http://localhost:8008/api/auth', {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          });
+          this.user = response.data.user;
+          localStorage.setItem('user', JSON.stringify(this.user));
+        } catch (error) {
+          this.logout();
+        }
+      }
+    },
   },
 });
