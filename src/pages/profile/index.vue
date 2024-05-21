@@ -2,6 +2,7 @@
   <v-container class="profile">
     <ProfileInfo />
     <ProfileButtonBar />
+    <AddPostBtn />
   </v-container>
 </template>
 
