@@ -90,12 +90,10 @@ exports.registerUser = async (req, res) => {
     let { password, email, fullname, username } = req.body;
     // Pārbauda vai request.body ir nepieciešamie lauciņi lietotāja profila izveidei
     if (!email || !password || !fullname || !username) {
-      return res
-        .status(400)
-        .send({
-          error: true,
-          message: 'Viens vai vairāki lauciņi nav aizpildīti',
-        });
+      return res.status(400).send({
+        error: true,
+        message: 'Viens vai vairāki lauciņi nav aizpildīti',
+      });
     }
 
     // Parbauda, vai e-pasta adrese jau nav reģistrēta
@@ -129,12 +127,10 @@ exports.registerUser = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .send({
-        message:
-          'Ir notikusi kļūda, lūdzams sazināties ar sistēmas administratoru.',
-      });
+    return res.status(500).send({
+      message:
+        'Ir notikusi kļūda, lūdzams sazināties ar sistēmas administratoru.',
+    });
   }
 };
 

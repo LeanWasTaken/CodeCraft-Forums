@@ -1,9 +1,13 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-exports.createPost = async (req, res) => {
+export async function createPost(req, res) {
   try {
     const { title, content, type, topic, userId } = req.body;
+
+    if (!userId) {
+      return res.status(409).json({ message: "No user provided." });
+    }
 
     const user = await prisma.users.findUnique({
       where: {
@@ -15,22 +19,38 @@ exports.createPost = async (req, res) => {
       return res.status(404).json({ message: 'User does not exist' });
     }
 
-    const comment = await prisma.comments.create({
+    if (!title) {
+      return res.status(409).json({ message: "Post title is missing." });
+    } else if (!content) {
+      return res.status(409).json({ message: "Post content is missing." });
+    } else if (!type) {
+      return res.status(409).json({ message: "Post type is missing." });
+    } else if (!topic) {
+      return res.status(409).json({ message: "Post topic is missing." });
+    }
+
+    const post = await prisma.posts.create({
       data: {
+        title,
         content,
-        postId,
+        type,
+        topic,
         authorId: userId,
       },
     });
 
-    return res.status(201).json(comment);
+    if(post) {
+      return res.status(201).json({ message: "Post created."});
+    } else {
+      return res.status(500).json({ message: 'Internal server error' });
+    }
   } catch (error) {
-    console.error('Error creating comment:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
-};
+}
 
-exports.deleteComment = async (req, res) => {
+
+export async function deleteComment(req, res) {
   try {
     const { commentId, userId } = req.body;
 
@@ -49,9 +69,9 @@ exports.deleteComment = async (req, res) => {
     console.error('Error creating comment:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
-};
+}
 
-exports.getCommentsByPostId = async (req, res) => {
+export async function getCommentsByPostId(req, res) {
   try {
     const { postId } = req.params;
 
@@ -77,4 +97,4 @@ exports.getCommentsByPostId = async (req, res) => {
     console.error('Error fetching comments:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
-};
+}

@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import ProfileEdit from './ProfileEdit.vue';
-</script>
-
 <template>
-  <v-container class="container">
+  <v-container>
     <v-card class="profile-info" elevation="3" rounded="lg">
         <v-card-title class="profile-title">
           <v-row class="justify-space-between py-1 px-4">
@@ -34,7 +30,10 @@ import ProfileEdit from './ProfileEdit.vue';
         subtitle="@username"
         title="Profile name"
       ></v-list-item>
-      <p class="profile-bio">Clothes make the man. Naked people have little or no influence in society.</p>
+      <p class="profile-bio">
+        Clothes make the man. Naked people have little or no influence in
+        society.
+      </p>
       <v-row class="followers py-2">
         <p>Following X</p>
         <p>Followers Y</p>
@@ -45,13 +44,15 @@ import ProfileEdit from './ProfileEdit.vue';
 </template>
 
 <style scoped>
+* {
+  font-weight: 300;
+}
 .followers > * {
   padding-right: 10px;
 }
 
 .profile-name {
   padding-left: 15px;
-  font-weight: 300;
 }
 
 .avatar {
@@ -62,19 +63,16 @@ import ProfileEdit from './ProfileEdit.vue';
 
 .followers {
   margin-left: 20px;
-  font-weight: 300;
 }
 
 .profile-bio {
   margin-left: 20px;
   margin-bottom: 15px;
-  font-weight: 300;
   padding-right: 10px;
 }
 
-.profile-info {
-    font-weight: 300;
+.profile-main-info {
+  max-height: 50px;
+  font-size: 10px;
 }
-
 </style>
-
