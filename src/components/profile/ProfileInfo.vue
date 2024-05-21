@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import ProfileEdit from './ProfileEdit.vue';
+</script>
+
 <template>
   <v-container class="container">
     <v-card class="profile-info" elevation="3" rounded="lg">
@@ -10,8 +14,7 @@
                 >
                     </v-list-item>
                     <v-list-item class="my-1 pa-1">
-                <v-btn class="edit-btn ma-1"
-                        variant=text>EDIT PROFILE</v-btn>
+                      <ProfileEdit />
                     </v-list-item>
           </v-row>
                 
@@ -35,6 +38,7 @@
         subtitle="@username"
         title="Profile name"
       ></v-list-item>
+      <p class="profile-bio">Clothes make the man. Naked people have little or no influence in society.</p>
       <v-row class="followers">
         <p>Following X</p>
         <p>Followers Y</p>
@@ -66,6 +70,12 @@
   font-weight: 300;
 }
 
+.profile-bio {
+  margin-left: 20px;
+  padding: 10px;
+  font-weight: 300;
+}
+
 .profile-main-info {
     max-height: 50px;
     font-size: 10px;
@@ -78,3 +88,4 @@
 
 
 </style>
+
