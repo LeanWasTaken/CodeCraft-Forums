@@ -35,7 +35,7 @@
         subtitle="@username"
         title="Profile name"
       ></v-list-item>
-      <v-row class="followers">
+      <v-row class="followers py-2">
         <p>Following X</p>
         <p>Followers Y</p>
       </v-row>
@@ -46,7 +46,7 @@
 
 <style scoped>
 .followers > * {
-  padding: 10px;
+  padding-right: 10px;
 }
 
 .profile-name {
@@ -62,7 +62,6 @@
 
 .followers {
   margin-left: 20px;
-  padding: 10px;
   font-weight: 300;
 }
 
