@@ -1,16 +1,76 @@
-/**
- * router/index.ts
- *
- * Automatic routes for `./src/pages/*.vue`
- */
+import { createRouter, createWebHistory } from 'vue-router';
+import DefaultLayout from '@/layouts/default.vue';
+import LandingPage from '@/pages/index.vue';
+import AuthLogin from '@/pages/auth/login.vue';
+import AuthRegister from '@/pages/auth/register.vue';
+import Profile from '@/pages/profile/index.vue';
+import authMiddleware from '@/middleware/auth';
+import { useAuthStore } from '@/stores/auth';
 
-// Composables
-import { createRouter, createWebHistory } from 'vue-router/auto';
-import { setupLayouts } from 'virtual:generated-layouts';
+const routes = [
+  {
+    path: '/',
+    component: DefaultLayout,
+    children: [
+      {
+        path: '',
+        name: 'Landing',
+        component: LandingPage,
+      },
+    ],
+  },
+  {
+    path: '/auth',
+    component: DefaultLayout,
+    children: [
+      {
+        path: 'login',
+        name: 'Login',
+        component: AuthLogin,
+        meta: { title: 'Login', requiresGuest: true },
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: AuthRegister,
+        meta: { title: 'Register', requiresGuest: true },
+      },
+    ],
+  },
+  {
+    path: '/profile',
+    component: DefaultLayout,
+    children: [
+      {
+        path: '',
+        name: 'Profile',
+        component: Profile,
+        meta: {
+          title: 'Profile',
+          middleware: authMiddleware,
+        },
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  extendRoutes: setupLayouts,
+  routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  document.title = to.meta.title ? 'CodeCraft | ' + to.meta.title : "CodeCraft"
+
+  const authStore = useAuthStore();
+
+  if (to.meta.requiresGuest && authStore.isAuthenticated) {
+    next({ name: 'Profile' });
+  } else if (to.meta.middleware) {
+    await to.meta.middleware(to, from, next);
+  } else {
+    next();
+  }
 });
 
 export default router;

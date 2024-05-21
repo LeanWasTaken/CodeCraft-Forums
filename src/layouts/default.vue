@@ -10,5 +10,6 @@
 </template>
 
 <script setup>
+import NavbarComponent from '@/components/ui/NavbarComponent.vue'
 //
 </script>
