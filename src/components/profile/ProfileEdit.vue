@@ -70,18 +70,17 @@
 }
 
 .edit-pic-btn {
-    margin-top: 15px;
-    opacity: 50%;
-    color: black;
+  margin-top: 15px;
+  opacity: 50%;
+  color: black;
 }
 
 .edit-bg-btn {
-    margin-top: 65px;
-    margin-right: 200px;
-    opacity: 50%;
-    color: black;
+  margin-top: 65px;
+  margin-right: 200px;
+  opacity: 50%;
+  color: black;
 }
-
 </style>
 <script>
 export default {

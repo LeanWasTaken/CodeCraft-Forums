@@ -10,10 +10,13 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(email, password) {
       try {
-        const response = await axios.post('http://localhost:8008/api/auth/login', {
-          email,
-          password,
-        });
+        const response = await axios.post(
+          'http://localhost:8008/api/auth/login',
+          {
+            email,
+            password,
+          },
+        );
         this.token = response.data.token;
         localStorage.setItem('token', this.token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
@@ -29,6 +32,6 @@ export const useAuthStore = defineStore('auth', {
     },
   },
   getters: {
-    isAuthenticated: (state) => !!state.token,
+    isAuthenticated: state => !!state.token,
   },
 });

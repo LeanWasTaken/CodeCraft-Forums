@@ -31,9 +31,7 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" @click="login">
-              Login
-            </v-btn>
+            <v-btn color="primary" @click="login"> Login </v-btn>
           </v-card-actions>
         </v-card>
       </v-row>
@@ -78,10 +76,13 @@ const login = async () => {
   if (!v$.value.$error) {
     // Check if there are no validation errors
     try {
-      const response = await axios.post('http://localhost:8008/api/auth/login', {
-        email: state.email,
-        password: state.password,
-      });
+      const response = await axios.post(
+        'http://localhost:8008/api/auth/login',
+        {
+          email: state.email,
+          password: state.password,
+        },
+      );
 
       const data = response.data;
 

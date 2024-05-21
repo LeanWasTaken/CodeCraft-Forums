@@ -6,7 +6,7 @@ export async function createPost(req, res) {
     const { title, content, type, topic, userId } = req.body;
 
     if (!userId) {
-      return res.status(409).json({ message: "No user provided." });
+      return res.status(409).json({ message: 'No user provided.' });
     }
 
     const user = await prisma.users.findUnique({
@@ -20,13 +20,13 @@ export async function createPost(req, res) {
     }
 
     if (!title) {
-      return res.status(409).json({ message: "Post title is missing." });
+      return res.status(409).json({ message: 'Post title is missing.' });
     } else if (!content) {
-      return res.status(409).json({ message: "Post content is missing." });
+      return res.status(409).json({ message: 'Post content is missing.' });
     } else if (!type) {
-      return res.status(409).json({ message: "Post type is missing." });
+      return res.status(409).json({ message: 'Post type is missing.' });
     } else if (!topic) {
-      return res.status(409).json({ message: "Post topic is missing." });
+      return res.status(409).json({ message: 'Post topic is missing.' });
     }
 
     const post = await prisma.posts.create({
@@ -39,8 +39,8 @@ export async function createPost(req, res) {
       },
     });
 
-    if(post) {
-      return res.status(201).json({ message: "Post created."});
+    if (post) {
+      return res.status(201).json({ message: 'Post created.' });
     } else {
       return res.status(500).json({ message: 'Internal server error' });
     }
@@ -48,7 +48,6 @@ export async function createPost(req, res) {
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
-
 
 export async function deleteComment(req, res) {
   try {
