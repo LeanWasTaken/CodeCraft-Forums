@@ -84,9 +84,23 @@
   import { ref } from 'vue';
   import { useStore } from 'vuex';
   import { useRouter } from 'vue-router';
-  
+  import { useI18n } from 'vue-i18n';
+
   const store = useStore();
   const router = useRouter();
+  const { locale } = useI18n();
+
+  let dropdown = ref(false)
+
+const items = [
+  { title: 'Latviski', locale: 'lv' },
+  { title: 'English', locale: 'en' }
+]
+
+const changeLocale = (newLocale) => {
+  locale.value = newLocale
+  dropdown.value = false
+}
   
   const dialogs = ref({
     password: false,

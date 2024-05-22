@@ -79,5 +79,9 @@
   },
   "fyp": {
       "trending": "Šodienas tendences:"
+  },
+  "comments": {
+      "like": "Patīk",
+      "reply": "Atbildes"
   }
-}
+  }

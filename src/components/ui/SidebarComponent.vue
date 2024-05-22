@@ -36,7 +36,7 @@
       ></v-list-item>
       <v-list-item
         link
-        :to="{ name: 'Profile' }"
+        :to="{ name: 'Settings' }"
         v-if="authStore.isAuthenticated"
         prepend-icon="mdi-cog-outline"
         title="Settings"

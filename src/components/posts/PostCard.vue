@@ -19,8 +19,8 @@
         <v-card-title class="post-title">{{ postContent.title }}</v-card-title>
         <div class="comment-content mx-4" v-html="postContent.content" />
         <v-card-actions class="comment-actions">
-          <v-btn class="reply" @click="reply">Reply</v-btn>
-          <v-btn class="like" @click="like">Like</v-btn>
+          <v-btn class="reply" @click="reply" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
+          <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
         </v-card-actions>
       </v-card>
     </div>
