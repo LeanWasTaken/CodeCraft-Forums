@@ -15,7 +15,7 @@
     <v-list dense nav>
       <v-list-item link :to="{ name: 'Home' }" prepend-icon="mdi-home-outline" title="Home"></v-list-item>
       <v-list-item link prepend-icon="mdi-arrow-top-right-thin-circle-outline" title="Popular"></v-list-item>
-      <v-list-item link prepend-icon="mdi-arrow-top-right-thin-circle-outline" title="All"></v-list-item>
+      <v-list-item link prepend-icon="mdi-map-search-outline" title="All"></v-list-item>
       <v-list-item v-if="authStore.isAuthenticated" prepend-icon="mdi-forum" title="My topics"></v-list-item>
       <v-list-item link :to="{ name: 'Profile' }" v-if="authStore.isAuthenticated" prepend-icon="mdi-cog-outline" title="Settings"></v-list-item>
       <v-list-item @click="logout" prepend-icon="mdi-logout" title="Log out" v-if="authStore.isAuthenticated"></v-list-item>
