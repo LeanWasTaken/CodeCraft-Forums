@@ -1,25 +1,24 @@
 <template>
-<v-app>
-  <v-layout class="sidebar rounded rounded-md">
-    <NavbarComponent />
-    <SideBar>
+  <v-app>
+    <v-layout class="sidebar-layout rounded-md">
+      <NavbarComponent />
+      <SideBar>
         <v-main>
-            <router-view />
+          <router-view />
         </v-main>
-    </SideBar>
-  </v-layout>
-</v-app>
+      </SideBar>
+    </v-layout>
+  </v-app>
 </template>
 
 <script setup>
 import NavbarComponent from '@/components/ui/NavbarComponent.vue';
 import SideBar from '@/components/ui/SidebarComponent.vue';
-//
 </script>
 
 <style scoped>
-.sidebar {
-    min-height: 100vh;
-    min-width: 100%;
+.sidebar-layout {
+  min-height: 100vh;
+  display: flex;
 }
 </style>
