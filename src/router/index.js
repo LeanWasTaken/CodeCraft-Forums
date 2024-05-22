@@ -11,6 +11,7 @@ import Profile from '@/pages/profile/index.vue';
 import authMiddleware from '@/middleware/auth';
 import { useAuthStore } from '@/stores/auth';
 import HomePage from '@/pages/home/index.vue';
+import Settings from '@/pages/profile/settings.vue';
 
 const routes = [
   {
@@ -63,6 +64,15 @@ const routes = [
         component: Profile,
         meta: {
           title: 'Profile',
+          middleware: authMiddleware,
+        },
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: Settings,
+        meta: {
+          title: 'Settings',
           middleware: authMiddleware,
         },
       },

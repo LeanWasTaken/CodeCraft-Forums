@@ -82,35 +82,34 @@ CodeCraft is a forum platform designed for technology enthusiasts and coders. It
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/LeanWasTaken/CodeCraft-Forums.git
-    cd CodeCraft-Forums
-    ```
+   ```bash
+   git clone https://github.com/LeanWasTaken/CodeCraft-Forums.git
+   cd CodeCraft-Forums
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Set up the database:
 
-    ```bash
-    npx prisma migrate dev
-    ```
+   ```bash
+   npx prisma migrate dev
+   ```
 
 4. Start the frontend development server:
 
-    ```bash
-    npm run dev
-    ```
-
+   ```bash
+   npm run dev
+   ```
 
 5. Start the backend development server:
 
-    ```bash
-    npm run server
-    ```
+   ```bash
+   npm run server
+   ```
 
 ### Usage
 
@@ -118,10 +117,6 @@ CodeCraft is a forum platform designed for technology enthusiasts and coders. It
 2. Register a new account or log in with an existing one.
 3. Explore the forums, create posts, and interact with the "community".
 
-
 ### Contributing
+
 This is a school project, so, sadly others can't contribute :/
-
-
-
-

@@ -33,11 +33,6 @@
           </v-autocomplete>
         </v-card-text>
 
-        <v-row class="add-btns">
-          <v-btn icon="mdi-image" class="add-image-btn"></v-btn>
-          <v-btn icon="mdi-code-tags" class="add-code-btn"></v-btn>
-        </v-row>
-
         <v-divider></v-divider>
 
         <v-card-actions>
