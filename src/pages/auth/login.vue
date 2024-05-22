@@ -72,7 +72,7 @@ const login = async () => {
   if (!v$.value.$error) {
     try {
       await authStore.login({ email: state.email, password: state.password });
-      router.push('/profile/');
+      router.push('/home/');
     } catch (error) {
       alert('An error occurred. Please try again.');
     }
