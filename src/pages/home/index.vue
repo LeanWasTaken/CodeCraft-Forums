@@ -11,3 +11,13 @@
   width: 100%;
 }
 </style>
+
+<script setup>
+import { ref } from 'vue';
+
+const content = ref('');
+
+import { useContentStore } from '@/stores/content';
+
+const contentStore = useContentStore();
+</script>

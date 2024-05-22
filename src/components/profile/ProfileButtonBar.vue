@@ -8,17 +8,20 @@
       </v-tabs>
 
       <v-card-text>
+        <v-btn @click="fetchPosts">fetch posts</v-btn>
         <v-tabs-window v-model="tab">
           <v-tabs-window-item value="1">
-            <h1>
-              This is example text for the first atb in the user profile page.
-            </h1>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum
-              mollitia labore similique nobis illum ipsum laboriosam repudiandae
-              hic omnis incidunt perferendis, adipisci nisi, eaque magni
-              architecto voluptatum tenetur eius consequuntur!
-            </p>
+            
+            <PostCard
+              v-for="post in posts"
+              :key="post.id"
+              :name="post.author.fullname"
+              :username="post.author.username"
+              avatar="username"
+              :title="post.title"
+              :content="post.content"
+              class="mb-4"
+            />
           </v-tabs-window-item>
 
           <v-tabs-window-item value="2"> Two </v-tabs-window-item>
@@ -31,6 +34,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { useAuthStore } from '@/stores/auth';
+
 const tab = ref('1');
+const posts = ref([])
+
+const authStore = useAuthStore();
+
+const fetchPosts = async () => {
+
+  const userId = authStore.getUserId
+
+  try {
+    const response = await axios.get('http://localhost:8008/api/posts/', { params : {
+      userId: userId
+    }});
+    posts.value = response.data
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+};
+
+onMounted(fetchPosts)
 </script>

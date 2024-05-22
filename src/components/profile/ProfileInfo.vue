@@ -1,13 +1,14 @@
 <template>
   <v-container>
     <v-card class="profile-info" elevation="3" rounded="lg">
-      <v-card-title class="profile-title">
-        <v-row class="justify-space-between py-1 px-4">
-          <v-list-item subtitle="Views count" title="Profile name">
-          </v-list-item>
-          <v-list-item class="my-1 pa-1">
-            <ProfileEdit />
-          </v-list-item>
+      <v-card-title>
+        <v-row class="justify-space-between py-1 px-4" no-gutters>
+          <v-col cols="2" class="my-auto">
+            <p class="profile-name">Profile Name</p>
+            <p class="profile-views">Profile views</p>
+          </v-col>
+          <v-col cols="2" offset="6"><AddPost class="px-0 mx-1"/></v-col>
+          <v-col cols="2"><ProfileEdit class="px-0 mx-1"/></v-col>
         </v-row>
       </v-card-title>
       <v-img
@@ -42,15 +43,19 @@
 </template>
 
 <style scoped>
+.profile-name {
+  font-size:16px
+}
+
+.profile-views {
+  font-size: 12px
+}
+
 * {
   font-weight: 300;
 }
 .followers > * {
   padding-right: 10px;
-}
-
-.profile-name {
-  padding-left: 15px;
 }
 
 .avatar {

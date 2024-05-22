@@ -1,9 +1,49 @@
-import { PrismaClient } from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-export async function createPost(req, res) {
+exports.getPosts = async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    console.log(req.query)
+
+    if (!userId) {
+      return res.status(409).json({ message: 'No user provided.' });
+    }
+
+    const posts = await prisma.posts.findMany({
+      where: {
+        author: {
+            id: userId
+          }
+      },
+      include: {
+        author: {
+          select: {
+            fullname: true,
+            username: true
+          }
+        }
+      }
+    });
+
+    if (posts) {
+      console.log(posts)
+      return res.status(201).json(posts);
+    } else {
+      return res.status(404).json({ message: "No posts found."})
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+exports.createPost = async (req, res) => {
   try {
     const { title, content, type, topic, userId } = req.body;
+
+    console.log(req.body)
 
     if (!userId) {
       return res.status(409).json({ message: 'No user provided.' });
@@ -33,10 +73,18 @@ export async function createPost(req, res) {
       data: {
         title,
         content,
-        type,
-        topic,
-        authorId: userId,
-      },
+        type: type,
+        topic: {
+          connect: {
+            name: topic
+          }
+        },
+        author: {
+          connect: {
+            id: userId
+          }
+        }
+      }
     });
 
     if (post) {
@@ -45,55 +93,7 @@ export async function createPost(req, res) {
       return res.status(500).json({ message: 'Internal server error' });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-}
-
-export async function deleteComment(req, res) {
-  try {
-    const { commentId, userId } = req.body;
-
-    const comment = await prisma.comments.delete({
-      where: {
-        id: commentId,
-        authorId: userId,
-      },
-    });
-
-    if (!comment) {
-      return res.status(404).json({ message: 'Comment not found' });
-    }
-    return res.status(201).send({ message: 'Comment deleted' });
-  } catch (error) {
-    console.error('Error creating comment:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-}
-
-export async function getCommentsByPostId(req, res) {
-  try {
-    const { postId } = req.params;
-
-    // Fetch comments for the given post id
-    const comments = await prisma.comments.findMany({
-      where: {
-        postId,
-      },
-      include: {
-        author: {
-          select: {
-            fullname: true,
-            username: true,
-          },
-        },
-      },
-    });
-    if (comments.length < 1) {
-      return res.status(404).send({ message: 'No comments found for post.' });
-    }
-    return res.status(200).send(comments);
-  } catch (error) {
-    console.error('Error fetching comments:', error);
+    console.log(error)
     return res.status(500).json({ message: 'Internal server error' });
   }
 }

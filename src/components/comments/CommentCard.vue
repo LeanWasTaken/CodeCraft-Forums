@@ -16,7 +16,7 @@
           <v-img :alt="comment.name" :src="comment.avatar"></v-img>
         </v-avatar>
       </template>
-      <v-card-text class="comment-content">{{ comment.content }}</v-card-text>
+      <div class="comment-content mx-4" v-html="comment.content" />
       <v-card-actions class="comment-actions">
         <v-btn class="reply" @click="reply">Reply</v-btn>
         <v-btn class="like" @click="like">Like</v-btn>
@@ -32,7 +32,7 @@ const comment = ref({
   name: 'Andris Kalniņš',
   username: '@andrisk',
   avatar: 'https://cdn.vuetifyjs.com/images/john.png',
-  content: 'Comment content',
+  content: '<p>Comment content</p>',
 });
 
 const reply = () => {

@@ -26,8 +26,15 @@ const authRouter = require('./routers/authRouter.js');
 
 const commentRouter = require('./routers/commentRouter.js');
 
+const topicsRouter = require('./routers/topicRouter.js')
+
+const postRouter = require('./routers/postRouter.js')
+
+
 app.use('/api/auth', authRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/topics', topicsRouter);
+app.use('/api/posts', postRouter)
 
 const PORT = 8008;
 
