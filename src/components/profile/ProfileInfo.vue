@@ -3,7 +3,7 @@
     <v-card class="profile-info" elevation="3" rounded="lg">
       <v-card-title class="profile-title">
         <v-row class="justify-space-between py-1 px-4">
-          <v-list-item subtitle="views count" title="Profile name">
+          <v-list-item subtitle="Views count" title="Profile name">
           </v-list-item>
           <v-list-item class="my-1 pa-1">
             <ProfileEdit />
@@ -33,8 +33,8 @@
         society.
       </p>
       <v-row class="followers py-2">
-        <p>Following X</p>
-        <p>Followers Y</p>
+        <p>{{ $t('profile-info.following') }} X</p>
+        <p>{{ $t('profile-info.followers') }}  Y</p>
       </v-row>
       <div class="py-3"></div>
     </v-card>

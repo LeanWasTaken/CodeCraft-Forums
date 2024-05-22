@@ -2,9 +2,9 @@
   <v-container>
     <v-card class="interactions-card" rounded="lg">
       <v-tabs v-model="tab" grow>
-        <v-tab value="1">Posts</v-tab>
-        <v-tab value="2">Replies</v-tab>
-        <v-tab value="3">Likes</v-tab>
+        <v-tab value="1">{{ $t('profile-button-bar.posts') }}</v-tab>
+        <v-tab value="2">{{ $t('profile-button-bar.replies') }}</v-tab>
+        <v-tab value="3">{{ $t('profile-button-bar.likes') }}</v-tab>
       </v-tabs>
 
       <v-card-text>

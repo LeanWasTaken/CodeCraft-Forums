@@ -1,7 +1,7 @@
 <template>
   <v-container class="container">
     <v-card>
-      <v-card-title>Trending Today:</v-card-title>
+      <v-card-title>{{ $t('fyp.trending') }}</v-card-title>
     </v-card>
   </v-container>
 </template>

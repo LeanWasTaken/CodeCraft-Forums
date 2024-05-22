@@ -42,7 +42,7 @@
 
           <v-btn
             color="primary"
-            text="Add"
+            text="Create"
             variant="tonal"
             @click="dialog = false"
           ></v-btn>

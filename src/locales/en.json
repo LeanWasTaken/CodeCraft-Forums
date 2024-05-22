@@ -1,0 +1,83 @@
+{
+    "registation": {
+      "welcome": "Welcome to",
+      "email-info": "This is the email you will use to login to your CodeCraft account",
+      "password-enter": "Please enter a password for your account",
+      "thanks-signup": "Thanks for signing up!",
+      "back": "Back",
+      "next": "Next",
+      "register": "Register",
+      "registation-form": "Sign-up",
+      "registation-password": "Create a password",
+      "registation-acc": "Account created"
+    },
+    "login": {
+      "welcome": "Welcome to",
+      "login": "Login",
+      "have-acc": "Don't have an account?"
+    },
+    "createpost": {
+      "createpost": "Create a post!",
+      "create": "Create",
+      "title": "Title",
+      "post": "Post",
+      "topic": "Topic",
+      "close": "Close"
+    },
+    "profile-button-bar": {
+        "posts": "Posts",
+        "replies": "Replies",
+        "likes": "Likes"
+    },
+    "profile-edit": {
+        "edit": "Edit Profile",
+        "user": "User Profile",
+        "name": "Name",
+        "username": "Username",
+        "bio": "Bio",
+        "save": "Save"
+    },
+    "profile-info": {
+        "views": "Views",
+        "following": "Following",
+        "followers": "Followers"
+    },
+    "settings": {
+        "profile": "Your profile",
+        "info": "See information about your account, change your data, or learn about your account deactivation options",
+        "password": "Change password",
+        "email": "Change E-mail",
+        "language": "Change language",
+        "deactivate": "Deactivate your account",
+        "close": "Close",
+        "save": "Save",
+        "deactivate-info": "Are you sure you want to deactivate your account? If you are sure, enter your password!",
+        "deactivate-btn": "Deactivate",
+        "cur-password": "Current password",
+        "new-password": "New password",
+        "conf-password": "Confirm password",
+        "old-email": "Current e-mail",
+        "new-email": "New e-mail",
+        "change-language": "Language",
+        "deactivate-password": "Password"
+    },
+    "navbar": {
+        "getstarted": "Get Started!",
+        "logout": "Log Out"
+    },
+    "sidebar": {
+        "loggedin": "Logged in!",
+        "home": "Home",
+        "popular": "Popular",
+        "all": "All",
+        "settings": "Settings",
+        "logout": "Log out"
+    },
+    "home": {
+        "welcome": "Welcome to",
+        "happening": "What's currently happening"
+    },
+    "fyp": {
+        "tending": "Trending Today:"
+    }
+}

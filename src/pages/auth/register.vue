@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <div class="text-body-1 font-weight-light mb-n1">Welcome to</div>
+      <div class="text-body-1 font-weight-light mb-n1">{{ $t('registation.welcome') }}</div>
 
       <h1 class="text-h4 font-weight-bold">CodeCraft</h1>
 
@@ -28,8 +28,7 @@
                   placeholder="john@google.com"
                 ></v-text-field>
                 <span class="text-caption text-grey-darken-1">
-                  This is the email you will use to login to your CodeCraft
-                  account
+                  {{ $t('registation.email-info') }}
                 </span>
               </v-card-text>
             </v-window-item>
@@ -47,7 +46,7 @@
                   type="password"
                 ></v-text-field>
                 <span class="text-caption text-grey-darken-1">
-                  Please enter a password for your account
+                  {{ $t('registation.password-enter') }}
                 </span>
               </v-card-text>
             </v-window-item>
@@ -61,10 +60,10 @@
                   contain
                 ></v-img>
                 <h3 class="text-h6 font-weight-light mb-2">
-                  Welcome to CodeCraft
+                  {{ $t('registation.welcome') }} CodeCraft
                 </h3>
                 <span class="text-caption text-grey"
-                  >Thanks for signing up!</span
+                  >{{ $t('registation.thanks-signup') }}</span
                 >
               </div>
             </v-window-item>
@@ -74,7 +73,7 @@
 
           <v-card-actions>
             <v-btn v-if="currentStep > 1" variant="text" @click="decreaseStep">
-              Back
+              {{ $t('registation.back') }}
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
@@ -83,7 +82,7 @@
               variant="flat"
               @click="increaseStep"
             >
-              Next
+            {{ $t('registation.next') }}
             </v-btn>
             <v-btn
               v-if="currentStep == 2 && !loading"
@@ -91,7 +90,7 @@
               variant="flat"
               @click="registerUser"
             >
-              Register
+            {{ $t('registation.register') }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -111,8 +110,8 @@
 
 <script setup>
 import { ref, reactive, computed } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { email, minLength, required, sameAs } from '@vuelidate/validators';
+/*import { useVuelidate } from '@vuelidate/core';
+import { email, minLength, required, sameAs } from '@vuelidate/validators';*/
 import axios from 'axios';
 
 let step = ref(1);
@@ -182,12 +181,12 @@ function decreaseStep() {
 
 const state = ref({ ...initialState });
 
-const rules = {
+/*const rules = {
   email: { required, email },
   fullname: { required, minLength: minLength(10) },
   password: { required, minLength: minLength(8) },
   confirmPassword: { required, sameAs: sameAs('password') },
 };
 
-const v$ = useVuelidate(rules, state.value);
+const v$ = useVuelidate(rules, state.value);*/
 </script>

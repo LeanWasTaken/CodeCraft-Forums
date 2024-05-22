@@ -2,7 +2,7 @@
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="1440">
       <div class="text-center">
-        <div class="text-body-1 font-weight-medium mb-n1">Welcome to</div>
+        <div class="text-body-1 font-weight-medium mb-n1">{{ $t('home.welcome') }}</div>
 
         <h3 class="text-h2 font-weight-bold">
           <span style="color: var(--blue-text)">Code</span>
@@ -33,7 +33,7 @@
             variant="text"
           >
             <v-card-title class="text-center"
-              >What's currently happening</v-card-title
+              >{{ $t('home.happening') }}</v-card-title
             >
             <div class="my-5" />
 

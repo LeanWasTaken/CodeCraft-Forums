@@ -1,0 +1,83 @@
+{
+  "registation": {
+    "welcome": "Laipni lūdzam",
+    "email-info": "Šis ir e-pasts, kuru Jūs izmantosiet, lai pieteiktos savā CodeCraft kontā",
+    "password-enter": "Lūdzu, ievadiet sava konta paroli",
+    "thanks-signup": "Paldies, ka reģistrējāties!",
+    "back": "Atpakaļ",
+    "next": "Tālāk",
+    "register": "Reģistrēties",
+    "registation-form": "Reģistrācija",
+    "registation-password": "Ievadi paroli",
+    "registation-acc": "Konts ir izveidots"
+  },
+  "login": {
+    "welcome": "Laipni lūdzam",
+    "login": "Ielogoties",
+    "have-acc": "Jums nav konta?"
+  },
+  "createpost": {
+    "createpost": "Izveidot ierakstu!",
+    "create": "Izveidot",
+    "title": "Nosaukums",
+    "post": "Ieraksts",
+    "topic": "Temats",
+    "close": "Aizvert"
+  },
+  "profile-button-bar": {
+      "posts": "Ieraksti",
+      "replies": "Atbildes",
+      "likes": "Patīk"
+  },
+  "profile-edit": {
+      "edit": "Izlabot profilu",
+      "user": "Lietotāja profils",
+      "name": "Vārds",
+      "username": "Lietotājvārds",
+      "bio": "Apraksts",
+      "save": "saglabāt"
+  },
+  "profile-info": {
+      "views": "Skatījumi",
+      "following": "Seko",
+      "followers": "Sekotāji"
+  },
+  "settings": {
+      "profile": "Jūsu profils",
+      "info": "Apskatiet informāciju par savu kontu, mainiet savus datus vai uzziniet par konta deaktivizēšanas iespējām",
+      "password": "Mainīt paroli",
+      "email": "Mainīt e-pastu",
+      "language": "Mainīt valodu",
+      "deactivate": "Deaktivizēt kontu",
+      "close": "Aizvert",
+      "save": "Saglabāt",
+      "deactivate-info": "Vai esat pārliecināts, ka vēlaties deaktivizēt savu kontu? Ja esat pārliecināts, ievadiet savu paroli!",
+      "deactivate-btn": "Deaktivizēt",
+      "cur-password": "Tagadēja parole",
+      "new-password": "Jauna parole",
+      "conf-password": "Ievadiet paroli vēlreiz",
+      "old-email": "Tagadējs e-pasts",
+      "new-email": "Jauns e-pasts",
+      "change-language": "Valoda",
+      "deactivate-password": "Parole"
+  },
+  "navbar": {
+      "getstarted": "Sāksim!",
+      "logout": "Izlogoties"
+  },
+  "sidebar": {
+      "loggedin": "Ielogots!",
+      "home": "Sakums",
+      "popular": "Populāri",
+      "all": "Viss",
+      "settings": "Iestatījumi",
+      "logout": "Izlogoties"
+  },
+  "home": {
+      "welcome": "Laipni lūdzam",
+      "happening": "Pašlaik notiek"
+  },
+  "fyp": {
+      "trending": "Šodienas tendences:"
+  }
+}

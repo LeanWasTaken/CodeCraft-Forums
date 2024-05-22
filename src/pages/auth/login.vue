@@ -1,14 +1,14 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <div class="text-body-1 font-weight-light mb-n1">Welcome to</div>
+      <div class="text-body-1 font-weight-light mb-n1">{{ $t('login.welcome') }}</div>
       <h1 class="text-h4 font-weight-bold">CodeCraft</h1>
       <v-row class="content d-flex align-center justify-center">
         <v-card max-width="800" min-width="400" elevation="4">
           <v-card-title
             class="text-h6 font-weight-regular justify-space-between"
           >
-            <span>Login</span>
+            <span>{{ $t('login.login') }}</span>
           </v-card-title>
           <v-card-text>
             <v-text-field
@@ -28,12 +28,12 @@
           <v-divider />
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" @click="login"> Login </v-btn>
+            <v-btn color="primary" @click="login"> {{ $t('login.login') }} </v-btn>
           </v-card-actions>
         </v-card>
       </v-row>
       <v-btn class="mt-5" variant="text" to="/auth/register">
-        Don't have an account?
+        {{ $t('login.have-acc') }}
       </v-btn>
     </v-responsive>
   </v-container>

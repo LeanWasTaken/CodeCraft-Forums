@@ -1,13 +1,13 @@
 <template>
     <v-container class="profile-settings">
       <v-card>
-        <v-card-title>Your Profile</v-card-title>
-        <v-card-text>See information about your account, change your data, or learn about your account deactivation options</v-card-text>
+        <v-card-title>{{ $t('settings.profile') }}</v-card-title>
+        <v-card-text>{{ $t('settings.info') }}</v-card-text>
         <v-list dense nav>
-          <v-list-item @click="showDialog('password')" prepend-icon="mdi-lock-reset">Change password</v-list-item>
-          <v-list-item @click="showDialog('email')" prepend-icon="mdi-email-outline">Change E-mail</v-list-item>
-          <v-list-item @click="showDialog('language')" prepend-icon="mdi-translate">Change language</v-list-item>
-          <v-list-item @click="showDialog('deactivate')" prepend-icon="mdi-heart-broken-outline">Deactivate your account</v-list-item>
+          <v-list-item @click="showDialog('password')" prepend-icon="mdi-lock-reset">{{ $t('settings.password') }}</v-list-item>
+          <v-list-item @click="showDialog('email')" prepend-icon="mdi-email-outline">{{ $t('settings.email') }}</v-list-item>
+          <v-list-item @click="showDialog('language')" prepend-icon="mdi-translate">{{ $t('settings.language') }}</v-list-item>
+          <v-list-item @click="showDialog('deactivate')" prepend-icon="mdi-heart-broken-outline">{{ $t('settings.deactivate') }}</v-list-item>
         </v-list>
       </v-card>
 
@@ -21,8 +21,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -36,8 +36,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('email')">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('email')">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -57,8 +57,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('language')">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('language')">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -66,13 +66,13 @@
       <v-dialog v-model="dialogs.deactivate" max-width="600px">
         <v-card prepend-icon="mdi-heart-broken-outline" title="Deactivate Account">
           <v-card-text>
-            <p>Are you sure you want to deactivate your account? If you are sure, enter your password!</p>
+            <p>{{ $t('settings.deactivate-info') }}</p>
             <v-text-field label="Password" type="password" required class="mt-5"></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('deactivate')">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('deactivate')">Deactivate</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.deactivate-btn') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

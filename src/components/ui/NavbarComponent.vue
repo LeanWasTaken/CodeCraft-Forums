@@ -8,13 +8,13 @@
     </v-app-bar-title>
     <template v-slot:append>
       <div v-if="!authStore.isAuthenticated">
-        <v-btn to="/auth/login"><p>Get Started!</p></v-btn>
+        <v-btn to="/auth/login"><p>{{ $t('navbar.getstarted') }}</p></v-btn>
       </div>
       <div v-else>
         <v-btn text @click="navigateToProfile">{{
           authStore.user.username
         }}</v-btn>
-        <v-btn text @click="logout">Log Out</v-btn>
+        <v-btn text @click="logout">{{ $t('navbar.logout') }}</v-btn>
       </div>
     </template>
   </v-app-bar>
