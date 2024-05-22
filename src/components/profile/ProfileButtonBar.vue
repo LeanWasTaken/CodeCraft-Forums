@@ -4,8 +4,7 @@
       <v-tabs v-model="tab" grow>
         <v-tab value="1">Posts</v-tab>
         <v-tab value="2">Replies</v-tab>
-        <v-tab value="3">Media</v-tab>
-        <v-tab value="4">Likes</v-tab>
+        <v-tab value="3">Likes</v-tab>
       </v-tabs>
 
       <v-card-text>
@@ -25,7 +24,6 @@
           <v-tabs-window-item value="2"> Two </v-tabs-window-item>
 
           <v-tabs-window-item value="3"> Three </v-tabs-window-item>
-          <v-tabs-window-item value="4"> Four </v-tabs-window-item>
         </v-tabs-window>
       </v-card-text>
     </v-card>

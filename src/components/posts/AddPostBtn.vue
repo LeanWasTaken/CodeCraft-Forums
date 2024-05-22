@@ -4,8 +4,8 @@
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn
           class="text-none font-weight-regular"
-          prepend-icon="mdi-account"
-          text="Add Post"
+          prepend-icon="mdi-lead-pencil"
+          text="Create"
           variant="tonal"
           v-bind="activatorProps"
         ></v-btn>
