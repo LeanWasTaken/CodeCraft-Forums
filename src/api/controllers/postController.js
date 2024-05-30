@@ -28,7 +28,6 @@ exports.getPosts = async (req, res) => {
     });
 
     if (posts) {
-      console.log(posts)
       return res.status(201).json(posts);
     } else {
       return res.status(404).json({ message: "No posts found."})
