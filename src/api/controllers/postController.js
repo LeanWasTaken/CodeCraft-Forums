@@ -2,6 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 exports.getPosts = async (req, res) => {
+  console.log("getPosts")
   try {
     const { id } = req.params;
 
@@ -22,7 +23,10 @@ exports.getPosts = async (req, res) => {
             username: true
           }
         }
-      }
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     if (posts) {
@@ -37,32 +41,38 @@ exports.getPosts = async (req, res) => {
 }
 
 exports.getLatestPosts = async (req, res) => {
+  console.log("getLatestPosts")
   try {
+    const { skip = 0, take = 5 } = req.query;
+
     const posts = await prisma.posts.findMany({
       include: {
         author: {
           select: {
             fullname: true,
-            username: true
+            username: true,
           }
         }
       },
       orderBy: {
         createdAt: 'desc',
       },
-      take: 5,
+      skip: parseInt(skip),
+      take: parseInt(take),
     });
 
-    if (posts) {
-      return res.status(201).json(posts);
+    if (posts.length) {
+      return res.status(200).json(posts); // Change status code to 200
     } else {
-      return res.status(404).json({ message: "No posts found."})
+      console.log('No posts found');
+      return res.status(404).json({ message: "No posts found." });
     }
   } catch (error) {
-    console.log(error)
+    console.error('Error fetching posts:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
+
 
 exports.createPost = async (req, res) => {
   try {

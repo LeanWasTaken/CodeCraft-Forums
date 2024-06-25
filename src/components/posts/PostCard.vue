@@ -13,11 +13,11 @@
     >
       <template v-slot:prepend>
         <v-avatar size="48">
-          <v-img :alt="name" :src="avatar"></v-img>
+          <v-img :alt="props.name" :src="props.avatar"></v-img>
         </v-avatar>
       </template>
-      <v-card-title class="post-title">{{ title }}</v-card-title>
-      <div class="comment-content mx-4" v-html="content" />
+      <v-card-title class="post-title">{{ props.title }}</v-card-title>
+      <div class="comment-content mx-4" v-html="props.content" />
       <v-card-actions class="comment-actions">
         <v-btn class="reply" @click="reply" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
         <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
