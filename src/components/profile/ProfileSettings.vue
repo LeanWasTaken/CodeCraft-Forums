@@ -36,8 +36,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('email')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('email')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -57,8 +57,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('language')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('language')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -71,8 +71,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.deactivate-btn') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('deactivate')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('deactivate')">{{ $t('settings.deactivate-btn') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
