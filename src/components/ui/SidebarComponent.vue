@@ -4,7 +4,7 @@
       <v-list-item
         lines="two"
         v-if="authStore.isAuthenticated"
-        prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
+        prepend-avatar="/assets/p-img/dog.jpeg"
         subtitle="Logged in"
         :title="authStore.user.name"
       ></v-list-item>
@@ -64,7 +64,7 @@ const authStore = useAuthStore();
 
 const logout = () => {
   authStore.logout();
-  router.push({ name: 'Home' });
+  router.push({ name: 'Landing' });
 };
 </script>
 

@@ -88,10 +88,11 @@ passport.use(
 exports.registerUser = async (req, res) => {
   try {
     let { password, email, fullname, username } = req.body;
-    // Pārbauda vai request.body ir nepieciešamie lauciņi lietotāja profila izveidei
+    console.log(req.body)
     if (!email || !password || !fullname || !username) {
-      return res.status(400).send({
+      return res.send({
         error: true,
+        error_type: "fields",
         message: 'Viens vai vairāki lauciņi nav aizpildīti',
       });
     }
@@ -103,7 +104,9 @@ exports.registerUser = async (req, res) => {
       },
     });
     if (user) {
-      return res.status(409).send({
+      return res.send({
+        error: true,
+        error_type: "exists",
         message: 'Lietotājs ar šādu E-Pasta adresi jau eksistē.',
       });
     }

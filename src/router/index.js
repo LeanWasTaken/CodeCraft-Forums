@@ -1,17 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
-//Layouts
 import DefaultLayout from '@/layouts/default.vue';
 import HomeLayout from '@/layouts/HomeLayout.vue';
-
 import LandingPage from '@/pages/index.vue';
 import AuthLogin from '@/pages/auth/login.vue';
 import AuthRegister from '@/pages/auth/register.vue';
 import Profile from '@/pages/profile/index.vue';
-import authMiddleware from '@/middleware/auth';
-import { useAuthStore } from '@/stores/auth';
 import HomePage from '@/pages/home/index.vue';
 import Settings from '@/pages/profile/settings.vue';
+import ViewProfile from '@/pages/profile/view/index.vue';
+import authMiddleware from '@/middleware/auth';
+import { useAuthStore } from '@/stores/auth';
 
 const routes = [
   {
@@ -76,6 +74,14 @@ const routes = [
           middleware: authMiddleware,
         },
       },
+      {
+        path: 'view/:username?',
+        name: 'View',
+        component: ViewProfile,
+        meta: {
+          title: 'View Profile'
+        }
+      }
     ],
   },
 ];

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 exports.getTopics = async (req, res) => {
   try {
     const topics = await prisma.topics.findMany();
-    res.json(topics);
+    res.status(200).json(topics);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -45,7 +45,7 @@ exports.updateTopic = async (req, res) => {
       where: { id },
       data: { name },
     });
-    res.json(updatedTopic);
+    res.status(200).json(updatedTopic);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

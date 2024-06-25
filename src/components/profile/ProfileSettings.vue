@@ -81,13 +81,8 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
-  import { useStore } from 'vuex';
-  import { useRouter } from 'vue-router';
+  import { ref, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-
-  const store = useStore();
-  const router = useRouter();
   const { locale } = useI18n();
 
   let dropdown = ref(false)
@@ -108,8 +103,7 @@ const changeLocale = (newLocale) => {
     deactivate: false,
     language: false,
   });
-  
-  const isAuthenticated = computed(() => store.state.authStore.isAuthenticated);
+
   
   const showDialog = (dialog) => {
     dialogs.value[dialog] = true;
@@ -120,7 +114,6 @@ const changeLocale = (newLocale) => {
   };
   
   const saveChanges = (dialog) => {
-    // Add logic to save changes
     console.log(`Saving changes for ${dialog}`);
     closeDialog(dialog);
   };
