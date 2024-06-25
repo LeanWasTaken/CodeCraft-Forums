@@ -36,8 +36,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('email')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('email')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -57,8 +57,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.save') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('language')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('language')">{{ $t('settings.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -71,8 +71,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog('password')">{{ $t('settings.close') }}</v-btn>
-            <v-btn color="blue darken-1" text @click="saveChanges('password')">{{ $t('settings.deactivate-btn') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="closeDialog('deactivate')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('deactivate')">{{ $t('settings.deactivate-btn') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -81,13 +81,8 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
-  import { useStore } from 'vuex';
-  import { useRouter } from 'vue-router';
+  import { ref, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-
-  const store = useStore();
-  const router = useRouter();
   const { locale } = useI18n();
 
   let dropdown = ref(false)
@@ -108,8 +103,7 @@ const changeLocale = (newLocale) => {
     deactivate: false,
     language: false,
   });
-  
-  const isAuthenticated = computed(() => store.state.authStore.isAuthenticated);
+
   
   const showDialog = (dialog) => {
     dialogs.value[dialog] = true;
@@ -120,7 +114,6 @@ const changeLocale = (newLocale) => {
   };
   
   const saveChanges = (dialog) => {
-    // Add logic to save changes
     console.log(`Saving changes for ${dialog}`);
     closeDialog(dialog);
   };

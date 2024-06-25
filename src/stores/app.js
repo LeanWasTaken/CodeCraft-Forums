@@ -6,3 +6,5 @@ export const useAppStore = defineStore('app', {
     //
   }),
 });
+
+// this isnt even needed tbf

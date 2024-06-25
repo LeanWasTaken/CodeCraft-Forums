@@ -11,6 +11,8 @@ model Users {
   id                                   String      @id @default(uuid())
   fullname                             String
   username                             String      @unique
+  bio                                  String      @default("")
+  avatar_url                           String      @default("")
   email                                String      @unique
   password                             String
   createdAt                            DateTime    @default(now())
@@ -29,8 +31,8 @@ model Topics {
 
 model Posts {
   id        String     @id @default(uuid())
-  title     String
-  content   String
+  title     String     @db.VarChar(100)
+  content   String     @db.VarChar(2500)
   type      PostType
   createdAt DateTime   @default(now())
   authorId  String

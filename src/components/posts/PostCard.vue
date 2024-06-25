@@ -1,5 +1,5 @@
 <template>
-  <div class="comment" v-hover>
+  <div class="comment">
     <v-card
       class="py-2"
       color="surface-variant"
@@ -19,8 +19,8 @@
       <v-card-title class="post-title">{{ title }}</v-card-title>
       <div class="comment-content mx-4" v-html="content" />
       <v-card-actions class="comment-actions">
-        <v-btn class="reply" @click="reply" prepend-icon="mdi-message-reply-outline" v-hover>Reply</v-btn>
-        <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline" v-hover>Like</v-btn>
+        <v-btn class="reply" @click="reply" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
+        <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
       </v-card-actions>
     </v-card>
   </div>

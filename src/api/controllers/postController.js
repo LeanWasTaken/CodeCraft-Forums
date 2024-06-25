@@ -3,18 +3,16 @@ const prisma = new PrismaClient();
 
 exports.getPosts = async (req, res) => {
   try {
-    const { userId } = req.query;
+    const { id } = req.params;
 
-    console.log(req.query)
-
-    if (!userId) {
+    if (!id) {
       return res.status(409).json({ message: 'No user provided.' });
     }
 
     const posts = await prisma.posts.findMany({
       where: {
         author: {
-            id: userId
+            id: id
           }
       },
       include: {
@@ -38,11 +36,37 @@ exports.getPosts = async (req, res) => {
   }
 }
 
+exports.getLatestPosts = async (req, res) => {
+  try {
+    const posts = await prisma.posts.findMany({
+      include: {
+        author: {
+          select: {
+            fullname: true,
+            username: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 5,
+    });
+
+    if (posts) {
+      return res.status(201).json(posts);
+    } else {
+      return res.status(404).json({ message: "No posts found."})
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 exports.createPost = async (req, res) => {
   try {
     const { title, content, type, topic, userId } = req.body;
-
-    console.log(req.body)
 
     if (!userId) {
       return res.status(409).json({ message: 'No user provided.' });

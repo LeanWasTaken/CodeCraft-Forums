@@ -8,11 +8,10 @@
       </v-tabs>
 
       <v-card-text>
-        <v-btn @click="fetchPosts">fetch posts</v-btn>
         <v-tabs-window v-model="tab">
           <v-tabs-window-item value="1">
-            
-            <PostCard
+            <div v-if="posts.length > 0">
+              <PostCard
               v-for="post in posts"
               :key="post.id"
               :name="post.author.fullname"
@@ -21,7 +20,11 @@
               :title="post.title"
               :content="post.content"
               class="mb-4"
-            />
+            /></div>
+            <div v-else>
+              <p>This user has no posts.</p>
+            </div>
+            
           </v-tabs-window-item>
 
           <v-tabs-window-item value="2"> Two </v-tabs-window-item>
@@ -34,28 +37,31 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import axios from 'axios';
-import { useAuthStore } from '@/stores/auth';
+import { defineProps } from 'vue';
+import PostCard from '@/components/posts/PostCard.vue';
+
+const props = defineProps({
+  user: Object,
+});
+
 
 const tab = ref('1');
-const posts = ref([])
-
-const authStore = useAuthStore();
+const posts = ref([]);
 
 const fetchPosts = async () => {
-
-  const userId = authStore.getUserId
-
+  let userId = props.user.id;
   try {
-    const response = await axios.get('http://localhost:8008/api/posts/', { params : {
-      userId: userId
-    }});
-    posts.value = response.data
+    const response = await axios.get(`http://localhost:8008/api/posts/${userId}`);
+    posts.value = response.data;  
   } catch (error) {
     console.error('Error fetching posts:', error);
   }
 };
 
-onMounted(fetchPosts)
+if(props.user){
+  fetchPosts()
+}
+console.log(posts)
 </script>
