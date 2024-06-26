@@ -4,6 +4,7 @@
     <div v-for="post in posts" :key="post.id">
       <PostCard
         class="post-card"
+        :id="post.id"
         :name="post.author.fullname"
         :username="post.author.username"
         :avatar="post.author.avatar || 'default-avatar.png'"

@@ -12,34 +12,38 @@
       variant="text"
     >
       <template v-slot:prepend>
+        <RouterLink :to="'/profile/view/' + props.username">
         <v-avatar size="48">
           <v-img :alt="props.name" :src="props.avatar"></v-img>
         </v-avatar>
+      </RouterLink>
       </template>
       <v-card-title class="post-title">{{ props.title }}</v-card-title>
       <div class="comment-content mx-4" v-html="props.content" />
       <v-card-actions class="comment-actions">
-        <v-btn class="reply" @click="reply" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
+        <v-btn class="reply" @click="showAddReply = true" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
         <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
       </v-card-actions>
+      <AddReply :id="props.id" v-if="showAddReply" @close="showAddReply = false"><v-btn @click="showAddReply = false">Cancel</v-btn></AddReply>
     </v-card>
+    
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
+import AddReply from '@/components/posts/AddReply.vue'
+
+const showAddReply = ref(false)
 
 const props = defineProps({
+  id: String,
   name: String,
   username: String,
   avatar: String,
   title: String,
   content: String
 });
-
-const reply = () => {
-  // Logic for reply action
-};
 
 const like = () => {
   // Logic for like action

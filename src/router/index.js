@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
+//Layouts
 import DefaultLayout from '@/layouts/default.vue';
 import HomeLayout from '@/layouts/HomeLayout.vue';
+
+//Pages
 import LandingPage from '@/pages/index.vue';
 import AuthLogin from '@/pages/auth/login.vue';
 import AuthRegister from '@/pages/auth/register.vue';
@@ -8,6 +12,10 @@ import Profile from '@/pages/profile/index.vue';
 import HomePage from '@/pages/home/index.vue';
 import Settings from '@/pages/profile/settings.vue';
 import ViewProfile from '@/pages/profile/view/index.vue';
+import ViewPost from '@/pages/posts/view.vue'
+import EditPost from '@/pages/posts/edit.vue'
+
+//Middlewares etc.
 import authMiddleware from '@/middleware/auth';
 import { useAuthStore } from '@/stores/auth';
 
@@ -31,6 +39,9 @@ const routes = [
         path: '',
         name: 'Home',
         component: HomePage,
+        meta: {
+          title: "Home"
+        }
       },
     ],
   },
@@ -82,6 +93,28 @@ const routes = [
           title: 'View Profile'
         }
       }
+    ],
+  },
+  {
+    path: '/posts',
+    component: HomeLayout,
+    children: [
+      {
+        path: 'view',
+        name: 'View post',
+        component: ViewPost,
+        meta: {
+          title: "View post"
+        }
+      },
+      {
+        path: 'edit',
+        name: 'Edit post',
+        component: EditPost,
+        meta: {
+          title: "Edit post"
+        }
+      },
     ],
   },
 ];

@@ -1,0 +1,1 @@
+<template><h1>View post</h1></template>

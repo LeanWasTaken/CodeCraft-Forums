@@ -86,7 +86,7 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-btn v-if="currentStep > 1" variant="text" @click="decreaseStep">
+            <v-btn v-if="3 > currentStep > 1" variant="text" @click="decreaseStep">
               {{ $t('registration.back') }}
             </v-btn>
             <v-spacer></v-spacer>
@@ -107,9 +107,12 @@
 
 <script setup>
 import { ref, reactive, computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core';
 import { email, minLength, required, sameAs } from '@vuelidate/validators';
 import axios from 'axios';
+
+const router = useRouter();
 
 const step = ref(1);
 const loading = ref(false);
@@ -191,6 +194,9 @@ async function registerUser() {
 
     if (response.status === 200) {
       step.value = 3;
+      setTimeout(() => {
+        router.push('/auth/login');
+      }, 3000);
     }
   } catch (err) {
     error.value = err.response?.data?.message || "Registration failed";

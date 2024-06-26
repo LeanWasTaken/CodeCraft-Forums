@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 exports.createComment = async (req, res) => {
   try {
-    const { content, postId, userId } = req.body;
+    const { content, postId, userId, type} = req.body;
 
     const post = await prisma.posts.findUnique({
       where: {
@@ -20,6 +20,7 @@ exports.createComment = async (req, res) => {
         content,
         postId,
         authorId: userId,
+        type
       },
     });
 
