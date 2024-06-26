@@ -15,6 +15,7 @@ model Users {
   avatar_url                           String      @default("")
   email                                String      @unique
   password                             String
+  lang                                 String      @default("lv")
   createdAt                            DateTime    @default(now())
   comments                             Comments[]
   Following_Following_followerToUsers  Following[] @relation("Following_followerToUsers")
