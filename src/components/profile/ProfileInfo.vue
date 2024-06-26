@@ -6,8 +6,12 @@
           <v-col cols="2" class="my-auto">
             <p class="profile-name">{{ user.username }}</p>
           </v-col>
-          <v-col cols="2" v-if="showButtons" offset="6"><AddPost class="px-0 mx-1"/></v-col>
-          <v-col cols="2" v-if="showButtons" ><ProfileEdit class="px-0 mx-1"/></v-col>
+          <v-col cols="2" v-if="showButtons" offset="6">
+            <AddPost class="px-0 mx-1"/>
+          </v-col>
+          <v-col cols="2" v-if="showButtons">
+            <ProfileEdit class="px-0 mx-1"/>
+          </v-col>
         </v-row>
       </v-card-title>
       <v-img

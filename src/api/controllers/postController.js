@@ -49,7 +49,7 @@ exports.getPostById = async (req, res) => {
       return res.status(409).json({ message: 'No ID provided.' });
     }
 
-    const post = await prisma.posts.findMany({
+    const post = await prisma.posts.findUnique({
       where: {
         id: id
       },
@@ -76,8 +76,32 @@ exports.getPostById = async (req, res) => {
 }
 
 exports.getLatestPosts = async (req, res) => {
-  console.log("getLatestPosts")
   try {
+
+    if(!req.query.take){
+      console.log("One post")
+      const posts = await prisma.posts.findFirst({
+        include: {
+          author: {
+            select: {
+              fullname: true,
+              username: true,
+              avatar_url: true,
+            }
+          }
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+  
+      if (posts) {
+        return res.status(200).json(posts);
+      } else {
+        console.log('No posts found');
+        return res.status(404).json({ message: "No posts found." });
+      }
+    } else {
     const { skip = 0, take = 5 } = req.query;
 
     const posts = await prisma.posts.findMany({
@@ -99,11 +123,12 @@ exports.getLatestPosts = async (req, res) => {
     });
 
     if (posts.length) {
-      return res.status(200).json(posts); // Change status code to 200
+      return res.status(200).json(posts);
     } else {
       console.log('No posts found');
       return res.status(404).json({ message: "No posts found." });
     }
+  }
   } catch (error) {
     console.error('Error fetching posts:', error);
     return res.status(500).json({ message: 'Internal server error' });

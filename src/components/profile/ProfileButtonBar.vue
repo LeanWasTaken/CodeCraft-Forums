@@ -64,5 +64,4 @@ const fetchPosts = async () => {
 if(props.user){
   fetchPosts()
 }
-console.log(posts)
 </script>

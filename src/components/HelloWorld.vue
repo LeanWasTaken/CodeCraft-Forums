@@ -37,12 +37,46 @@
             >
             <div class="my-5" />
 
-            <div class="pa-4">
-              <CommentCard />
-            </div>
+            <div v-if="loading == false" class="pa-4">
+              <PostCard
+              :id="post.id"
+              :name="post.author.fullname"
+              :username="post.author.username"
+              :avatar="post.author.avatar_url"
+              :title="post.title"
+              :content="post.content"
+              dont_show />
+            </div>  
           </v-card>
         </v-col>
       </v-row>
     </v-responsive>
   </v-container>
 </template>
+
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
+import PostCard from '@/components/posts/PostCard.vue';
+
+let post = ref([])
+const loading = ref(false);
+
+const fetchPosts = async () => {
+  loading.value = true;
+  try {
+    const response = await axios.get('http://localhost:8008/api/posts/latest');
+    post.value = response.data;
+    console.log(post)
+    loading.value = false
+  } catch (error) {
+    loading.value = true;
+  } finally {
+    loading.value = false;
+  }
+};
+
+if(loading.value == false) {
+  fetchPosts()
+}
+</script>

@@ -20,9 +20,8 @@
 
     <h2>Komentāri</h2>
 
-    <div v-if="comments.length">
-      <template v-for="comment in topLevelComments" :key="comment.id">
-        <div class="mb-4" style="border: solid 1px lightgray; border-radius: 8px">
+    <div v-if="topLevelComments.length">
+      <div v-for="comment in topLevelComments" :key="comment.id">
         <CommentCard
           :commentId="comment.id"
           :postId="post.id"
@@ -31,23 +30,22 @@
           :avatar="comment.author.avatar_url"
           :content="comment.content"
           class="mb-4"
-          
         />
-
-        <template v-for="reply in getReplies(comment.id)" :key="reply.id">
-          <CommentCard
-            :commentId="reply.id"
-            :postId="post.id"
-            :name="reply.author.fullname"
-            :username="reply.author.username"
-            :avatar="reply.author.avatar_url"
-            :content="reply.content"
-            class="ml-4 mb-4"
-          />
-        </template>
+        <div class="replies">
+          <template v-for="reply in getReplies(comment.id)" :key="reply.id">
+            <CommentCard
+              :commentId="reply.id"
+              :postId="post.id"
+              :name="reply.author.fullname"
+              :username="reply.author.username"
+              :avatar="reply.author.avatar_url"
+              :content="reply.content"
+              class="ml-4 mb-4"
+            >
+            </CommentCard>
+          </template>
+        </div>
       </div>
-      </template>
-      
     </div>
 
     <div v-else class="end-of-feed">
@@ -79,12 +77,7 @@ const fetchPostAndComments = async () => {
       axios.get(`http://localhost:8008/api/comments/${postId}`)
     ]);
 
-    if (postResponse.data.length > 0) {
-      post.value = postResponse.data[0];
-    } else {
-      error.value = 'Post not found';
-    }
-
+    post.value = postResponse.data;
     comments.value = commentsResponse.data;
   } catch (err) {
     console.error('Error fetching post or comments:', err);
@@ -102,15 +95,13 @@ const topLevelComments = computed(() => {
   return comments.value.filter(comment => comment.parentId === null);
 });
 
-// Method to get replies for a specific comment
-const getReplies = (parentId) => {
-  return comments.value.filter(comment => comment.parentId === parentId);
-};
-
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+const getReplies = (parentId) => {
+  return comments.value.filter(comment => comment.parentId === parentId);
+};
 </script>
 
 <style scoped>

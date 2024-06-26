@@ -1,4 +1,4 @@
-{
+    {
     "registration": {
       "welcome": "Welcome to",
       "email-info": "This is the email you will use to login to your CodeCraft account",
@@ -47,6 +47,8 @@
         "info": "See information about your account, change your data, or learn about your account deactivation options",
         "password": "Change password",
         "email": "Change E-mail",
+        "username": "Change username",
+        "fullname": "Change name",
         "language": "Change language",
         "deactivate": "Deactivate your account",
         "close": "Close",

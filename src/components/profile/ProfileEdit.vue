@@ -16,38 +16,42 @@
           <v-img
             class="profile-bg"
             height="200"
-            src="https://i.pinimg.com/736x/57/87/39/578739480ca0069cceb40b5034dfb3c5.jpg"
+            :src="profileImage"
             cover
           >
             <v-row class="justify-space-between">
               <v-avatar class="avatar" color="surface-variant" size="120">
                 <v-img
-                  src="https://www.intentional-collective.com/wp-content/uploads/2021/03/120450684_4003220729694135_3695653168839154084_n.jpg"
+                  :src="avatarPreview || 'https://www.intentional-collective.com/wp-content/uploads/2021/03/120450684_4003220729694135_3695653168839154084_n.jpg'"
                   cover
                 >
-                  <v-col cols="auto">
-                    <v-btn
-                      class="edit-pic-btn"
-                      icon="mdi-image-edit-outline"
-                      size="large"
-                    ></v-btn>
-                  </v-col> </v-img
-              ></v-avatar>
-              <v-col cols="auto">
-                <v-btn
-                  class="edit-bg-btn"
-                  icon="mdi-image-edit-outline"
-                  size="large"
-                ></v-btn>
-              </v-col>
+                  <v-btn
+                    class="edit-pic-btn"
+                    icon="mdi-image-edit-outline"
+                    size="large"
+                    @click="selectFile"
+                  ><v-file-input
+                  v-model="avatar"
+                  style="background:transparent; border:none; color:transparent;"
+                  accept="image/png, image/jpeg, image/gif"
+                  @change="handleFileChange"
+                ></v-file-input></v-btn>
+                  
+                </v-img>
+              </v-avatar>
+              <v-btn
+                class="edit-bg-btn"
+                icon="mdi-image-edit-outline"
+                size="large"
+              ></v-btn>
             </v-row>
           </v-img>
 
-          <v-text-field label="Name" required></v-text-field>
+          <v-text-field v-model="name" label="Name" required></v-text-field>
 
-          <v-text-field label="Usename" required></v-text-field>
+          <v-text-field v-model="username" label="Username" required></v-text-field>
 
-          <v-text-field label="Bio"></v-text-field>
+          <v-text-field v-model="bio" label="Bio"></v-text-field>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -61,14 +65,80 @@
             color="primary"
             text="Save"
             variant="tonal"
-            @click="dialog = false"
+            @click="saveProfile"
           ></v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
-<style>
+
+<script>
+import { ref } from 'vue';
+import axios from 'axios';
+
+export default {
+  setup() {
+    const dialog = ref(false);
+    const avatar = ref(null);
+    const avatarPreview = ref(null);
+    const name = ref('');
+    const username = ref('');
+    const bio = ref('');
+    
+    const profileImage = ref('https://i.pinimg.com/736x/57/87/39/578739480ca0069cceb40b5034dfb3c5.jpg');
+
+    const selectFile = () => {
+      // Trigger the file input dialog when the button is clicked
+      avatar.value = null; // Reset the selected file (optional)
+      dialog.value = true; // Open the dialog
+    };
+
+    const handleFileChange = (file) => {
+      if (file) {
+        avatar.value = file;
+        avatarPreview.value = URL.createObjectURL(file);
+      }
+    };
+
+    const saveProfile = async () => {
+      if (avatar.value) {
+        const formData = new FormData();
+        formData.append('avatar', avatar.value);
+
+        try {
+          const userId = 'yourUserId'; // Replace this with the actual user ID
+          await axios.post(`/api/upload-avatar/${userId}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+          alert('Profile updated successfully');
+        } catch (error) {
+          console.error('Error uploading avatar:', error);
+          alert('Failed to upload avatar');
+        }
+      }
+      dialog.value = false;
+    };
+
+    return {
+      dialog,
+      avatar,
+      avatarPreview,
+      name,
+      username,
+      bio,
+      profileImage,
+      selectFile,
+      handleFileChange,
+      saveProfile
+    };
+  }
+};
+</script>
+
+<style scoped>
 .avatar {
   margin-left: 30px;
   margin-top: 45px;
@@ -98,10 +168,3 @@
   color: black;
 }
 </style>
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-  }),
-};
-</script>

@@ -47,6 +47,8 @@
       "info": "Apskatiet informāciju par savu kontu, mainiet savus datus vai uzziniet par konta deaktivizēšanas iespējām",
       "password": "Mainīt paroli",
       "email": "Mainīt e-pastu",
+      "username": "Mainīt lietotājvārdu",
+      "fullname": "Mainīt vārdu",
       "language": "Mainīt valodu",
       "deactivate": "Deaktivizēt kontu",
       "close": "Aizvert",

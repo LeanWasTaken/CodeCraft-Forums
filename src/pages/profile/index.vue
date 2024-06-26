@@ -23,9 +23,7 @@ const fetchUser = async () => {
     try {
       const response = await axios.get(`http://localhost:8008/api/users/username/${userId}`);
       user.value = response.data;
-      console.log(user)
       userLoaded.value = true;
-      console.log(response.data)
     } catch (error) {
       console.error('Error fetching user:', error);
     }

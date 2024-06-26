@@ -24,7 +24,7 @@
         <v-card-title class="post-title">{{ props.title }}</v-card-title>
         <div class="comment-content mx-4" v-html="props.content" />
       </div>
-      <v-card-actions class="comment-actions">
+      <v-card-actions v-if="!dont_show" class="comment-actions">
         <v-btn class="reply" @click="showAddReply()" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
         <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
       </v-card-actions>
@@ -67,7 +67,8 @@ const props = defineProps({
   username: String,
   avatar: String,
   title: String,
-  content: String
+  content: String,
+  dont_show: Boolean
 });
 
 const like = () => {
