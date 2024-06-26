@@ -100,7 +100,7 @@ const routes = [
     component: HomeLayout,
     children: [
       {
-        path: 'view',
+        path: 'view/:postId?',
         name: 'View post',
         component: ViewPost,
         meta: {
@@ -108,7 +108,7 @@ const routes = [
         }
       },
       {
-        path: 'edit',
+        path: 'edit:/:postId?',
         name: 'Edit post',
         component: EditPost,
         meta: {

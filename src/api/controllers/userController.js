@@ -11,7 +11,9 @@ exports.getUserByUsername = async (req, res) => {
             id: true,
             username: true,
             fullname: true,
-            createdAt: true
+            createdAt: true,
+            avatar_url: true,
+            bio: true
         }});
     if (!user) {
       return res.status(404).json({ error: 'User not found' });

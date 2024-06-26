@@ -14,9 +14,10 @@
               <PostCard
               v-for="post in posts"
               :key="post.id"
+              :id="post.id"
               :name="post.author.fullname"
               :username="post.author.username"
-              avatar="username"
+              :avatar="post.author.avatar_url"
               :title="post.title"
               :content="post.content"
               class="mb-4"
@@ -53,7 +54,7 @@ const posts = ref([]);
 const fetchPosts = async () => {
   let userId = props.user.id;
   try {
-    const response = await axios.get(`http://localhost:8008/api/posts/${userId}`);
+    const response = await axios.get(`http://localhost:8008/api/posts/user/${userId}`);
     posts.value = response.data;  
   } catch (error) {
     console.error('Error fetching posts:', error);

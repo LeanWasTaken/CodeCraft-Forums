@@ -18,26 +18,52 @@
       </template>
       <div class="comment-content mx-4" v-html="comment.content" />
       <v-card-actions class="comment-actions">
-        <v-btn class="reply" @click="reply" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
+        <v-btn class="reply" @click="showAddReply()" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
         <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
       </v-card-actions>
+      <AddCommentReply :parentId="comment.commentId" :postId="comment.postId" v-if="showReplyCard" @close="showReplyCard = false"><v-btn @click="showAddReply()">Cancel</v-btn></AddCommentReply>
     </v-card>
+    
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
+import { useRouter } from 'vue-router';
 
-const comment = ref({
-  name: 'Andris Kalniņš',
-  username: '@andrisk',
-  avatar: 'https://cdn.vuetifyjs.com/images/john.png',
-  content: '<p>Comment content</p>',
+import AddCommentReply from '@/components/comments/AddCommentReply.vue';
+
+const router = useRouter()
+
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore()
+
+const showReplyCard = ref(false)
+
+const showAddReply = () => {
+  console.log("Showing reply card")
+
+  if(!authStore.isAuthenticated) {
+    router.push('/auth/login')
+  } else {
+    if(showReplyCard.value == false) {
+    showReplyCard.value = true
+  } else {
+    showReplyCard.value = false
+  }
+  }
+}
+
+
+const comment = defineProps({
+  commentId: String,
+  postId: String,
+  name: String,
+  username: String,
+  avatar: String,
+  content: String,
 });
-
-const reply = () => {
-  // Logic for reply action
-};
 
 const like = () => {
   // Logic for like action

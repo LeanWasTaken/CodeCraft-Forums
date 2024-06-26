@@ -18,10 +18,10 @@
       >
         <v-avatar class="avatar" color="surface-variant" size="120">
           <v-img
-            :src="user.avatarUrl || 'default-avatar-url.jpg'"
+            :src="user.avatar_url"
             cover
-          ></v-img
-        ></v-avatar>
+          ></v-img>
+        </v-avatar>
       </v-img>
       <v-list-item
         class="profile-info"
@@ -49,7 +49,7 @@ const showButtons = ref(false)
 const defaultUser = {
   username: 'PlaceholderUsername',
   fullname: 'Placeholder Name',
-  avatarUrl: 'default-avatar-url.jpg',
+  avatar_url: 'default-avatar-url.jpg',
   bio: 'No bio.',
   followingCount: 0,
   followerCount: 0

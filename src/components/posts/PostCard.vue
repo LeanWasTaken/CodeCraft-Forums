@@ -6,11 +6,13 @@
       rel="noopener noreferrer"
       rounded="lg"
       border="sm"
-      :subtitle="username"
+      :subtitle="props.username"
       target="_blank"
       :title="name"
       variant="text"
+      
     >
+    
       <template v-slot:prepend>
         <RouterLink :to="'/profile/view/' + props.username">
         <v-avatar size="48">
@@ -18,13 +20,15 @@
         </v-avatar>
       </RouterLink>
       </template>
-      <v-card-title class="post-title">{{ props.title }}</v-card-title>
-      <div class="comment-content mx-4" v-html="props.content" />
+      <div @click="router.push('/posts/view/' + props.id)" style="cursor: pointer">
+        <v-card-title class="post-title">{{ props.title }}</v-card-title>
+        <div class="comment-content mx-4" v-html="props.content" />
+      </div>
       <v-card-actions class="comment-actions">
-        <v-btn class="reply" @click="showAddReply = true" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
+        <v-btn class="reply" @click="showAddReply()" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
         <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
       </v-card-actions>
-      <AddReply :id="props.id" v-if="showAddReply" @close="showAddReply = false"><v-btn @click="showAddReply = false">Cancel</v-btn></AddReply>
+      <AddReply :id="props.id" v-if="showReplyCard" @close="showAddReply = false"><v-btn @click="showAddReply()">Cancel</v-btn></AddReply>
     </v-card>
     
   </div>
@@ -32,9 +36,30 @@
 
 <script setup>
 import { defineProps, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import AddReply from '@/components/posts/AddReply.vue'
 
-const showAddReply = ref(false)
+const router = useRouter()
+
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore()
+
+const showReplyCard = ref(false)
+
+const showAddReply = () => {
+  console.log("Showing reply card")
+
+  if(!authStore.isAuthenticated) {
+    router.push('/auth/login')
+  } else {
+    if(showReplyCard.value == false) {
+    showReplyCard.value = true
+  } else {
+    showReplyCard.value = false
+  }
+  }
+}
 
 const props = defineProps({
   id: String,

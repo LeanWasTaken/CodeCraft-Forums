@@ -11,4 +11,7 @@ router.delete('/', commentController.deleteComment);
 // Gets comments by post ID
 router.get('/:postId', commentController.getCommentsByPostId);
 
+// Gets comment count by post ID
+router.get('/count/:postId', commentController.getCommentsCountByPostId);
+
 module.exports = router;

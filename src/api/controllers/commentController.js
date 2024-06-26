@@ -3,7 +3,11 @@ const prisma = new PrismaClient();
 
 exports.createComment = async (req, res) => {
   try {
-    const { content, postId, userId, type} = req.body;
+    const { content, postId, userId, type, parentId } = req.body;
+    console.log(req.body)
+    if (!content || !postId || !userId || !type) {
+      return res.status(400).json({ error: true, message: "One or more fields are missing." });
+    }
 
     const post = await prisma.posts.findUnique({
       where: {
@@ -14,13 +18,25 @@ exports.createComment = async (req, res) => {
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
+    if (parentId) {
+      const parentComment = await prisma.comments.findUnique({
+        where: {
+          id: parentId,
+        },
+      });
+
+      if (!parentComment) {
+        return res.status(404).json({ message: 'Parent comment not found' });
+      }
+    }
 
     const comment = await prisma.comments.create({
       data: {
         content,
         postId,
         authorId: userId,
-        type
+        type,
+        parentId: parentId || null,
       },
     });
 
@@ -30,6 +46,7 @@ exports.createComment = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 exports.deleteComment = async (req, res) => {
   try {
@@ -56,7 +73,6 @@ exports.getCommentsByPostId = async (req, res) => {
   try {
     const { postId } = req.params;
 
-    // Fetch comments for the given post id
     const comments = await prisma.comments.findMany({
       where: {
         postId,
@@ -66,16 +82,34 @@ exports.getCommentsByPostId = async (req, res) => {
           select: {
             fullname: true,
             username: true,
+            avatar_url: true
           },
         },
       },
     });
     if (comments.length < 1) {
-      return res.status(404).send({ message: 'No comments found for post.' });
+      return res.status(200).send({ error: "no-comment", message: 'No comments found for post.' });
     }
     return res.status(200).send(comments);
   } catch (error) {
     console.error('Error fetching comments:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.getCommentsCountByPostId = async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    const commentsCount = await prisma.comments.count({
+      where: {
+        postId: postId,
+      },
+    });
+
+    return res.status(200).json({ count: commentsCount });
+  } catch (error) {
+    console.error('Error fetching comments count:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };

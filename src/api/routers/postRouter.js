@@ -7,7 +7,10 @@ const postController = require('../controllers/postController.js');
 router.get('/latest', postController.getLatestPosts);
 
 // Iegūst postus no specifiska lietotāja izmantojot tā ID
-router.get('/:id', postController.getPosts);
+router.get('/user/:id', postController.getPosts);
+
+// Iegūst postu ar specifisku ID
+router.get('/:id', postController.getPostById)
 
 // Izveido jaunu post
 router.post('/', postController.createPost);
