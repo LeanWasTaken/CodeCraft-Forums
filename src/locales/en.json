@@ -17,7 +17,7 @@
       "have-acc": "Don't have an account?"
     },
     "createpost": {
-      "createpost": "Create a post!",
+      "createpost": "Create a post",
       "create": "Create",
       "title": "Title",
       "post": "Post",
@@ -63,14 +63,17 @@
         "old-email": "Current e-mail",
         "new-email": "New e-mail",
         "change-language": "Language",
-        "deactivate-password": "Password"
+        "deactivate-password": "Password",
+        "images": "Profile images",
+        "banner": "Banner image",
+        "avatar": "Profile image"
     },
     "navbar": {
         "getstarted": "Get Started!",
         "logout": "Log Out"
     },
     "sidebar": {
-        "loggedin": "Logged in!",
+        "loggedin": "Logged in",
         "home": "Home",
         "popular": "Popular",
         "all": "All",
@@ -83,6 +86,7 @@
         "happening": "What's currently happening",
         "loading": "Loading...",
         "no-posts": "No more posts to load. ",
+        "no-comments": "No more comments to load. ",
         "back": "Back to top"
     },
     "fyp": {
@@ -91,5 +95,8 @@
     "comments": {
         "like": "Like",
         "reply": "Reply"
+    },
+    "topic": {
+        "topic": "Popular topics"
     }
 }

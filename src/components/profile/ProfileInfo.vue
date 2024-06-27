@@ -11,7 +11,8 @@
           </v-col>
           <v-col cols="2" v-if="showButtons">
             <v-btn
-              class="text-none font-weight-regular"
+              class="settings-btn text-none font-weight-regular"
+              id="setting-btn"
               prepend-icon="mdi-account"
               variant="tonal"
               @click="router.push('/profile/settings')"
@@ -114,5 +115,10 @@ if(authStore.user && authStore.user.id == user.id) {
 .profile-main-info {
   max-height: 50px;
   font-size: 10px;
+}
+
+.settings-btn {
+  margin: 10px;
+  margin-top: 15px;
 }
 </style>

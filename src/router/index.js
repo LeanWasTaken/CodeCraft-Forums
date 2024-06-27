@@ -14,6 +14,7 @@ import Settings from '@/pages/profile/settings.vue';
 import ViewProfile from '@/pages/profile/view/index.vue';
 import ViewPost from '@/pages/posts/view.vue'
 import EditPost from '@/pages/posts/edit.vue'
+import TopicPage from '@/pages/topic/index.vue'
 
 //Middlewares etc.
 import authMiddleware from '@/middleware/auth';
@@ -117,6 +118,20 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/topic',
+    component: HomeLayout,
+    children: [
+      {
+        path: '',
+        name: 'Topics',
+        component: TopicPage,
+        meta: {
+          title: "Topics"
+        }
+      },
+    ],
+  }
 ];
 
 const router = createRouter({

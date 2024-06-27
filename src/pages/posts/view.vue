@@ -7,6 +7,14 @@
       class="my-4"
     ></v-progress-circular>
 
+    <v-btn
+    prepend-icon="mdi-arrow-left"
+    class="text-none font-weight-regular mb-2"
+    variant="tonal"
+    @click="router.push('/home')"
+    :text="$t('home.back')"
+    ></v-btn>
+
     <PostCard
       class="mb-4"
       v-if="post"
@@ -52,20 +60,21 @@
     </div>
 
     <div v-else class="end-of-feed">
-      No comments to load.
-      <span style="cursor: pointer" @click="scrollToTop">Back to top</span>
+      {{ $t('home.no-comments') }}
+      <span style="cursor: pointer" @click="scrollToTop">{{ $t('home.back') }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 import axios from 'axios';
 import PostCard from '@/components/posts/PostCard.vue';
 import CommentCard from '@/components/comments/CommentCard.vue';
 
 const route = useRoute();
+const router = useRouter();
 const postId = route.params.postId;
 
 const post = ref(null);

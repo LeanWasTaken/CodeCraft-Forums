@@ -17,7 +17,7 @@
     "have-acc": "Jums nav konta?"
   },
   "createpost": {
-    "createpost": "Izveidot ierakstu!",
+    "createpost": "Izveidot ierakstu",
     "create": "Izveidot",
     "title": "Nosaukums",
     "post": "Ieraksts",
@@ -63,14 +63,17 @@
       "old-email": "Tagadējs e-pasts",
       "new-email": "Jauns e-pasts",
       "change-language": "Valoda",
-      "deactivate-password": "Parole"
+      "deactivate-password": "Parole",
+      "images": "Profila izskata maiņa",
+      "banner": "Fona bilde",
+      "avatar": "Profila bilde"
   },
   "navbar": {
       "getstarted": "Sāksim!",
       "logout": "Izlogoties"
   },
   "sidebar": {
-      "loggedin": "Ielogots!",
+      "loggedin": "Ielogots",
       "home": "Sakums",
       "popular": "Populāri",
       "all": "Viss",
@@ -82,8 +85,9 @@
       "welcome": "Laipni lūdzam",
       "happening": "Pašlaik notiek",
       "loading": "Notiek ielādē...",
-        "no-posts": "Nav ierakstu, lai ielādēt. ",
-        "back": "Atpakaļ"
+      "no-posts": "Nav ierakstu, ko ielādēt. ",
+      "back": "Atpakaļ",
+      "no-comments": "Nav komentāru, ko ielādēt. "
   },
   "fyp": {
       "trending": "Šodienas tendences:"
@@ -91,5 +95,8 @@
   "comments": {
       "like": "Patīk",
       "reply": "Atbildes"
-  }
+  },
+  "topic": {
+        "topic": "Populāras tēmas"
+    }
   }

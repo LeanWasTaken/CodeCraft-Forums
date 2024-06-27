@@ -1,6 +1,9 @@
 <template>
   <div class="todays-feed">
-    <h1 id="title">{{ $t('home.happening') }}</h1>
+    <v-row justify="space-between" class="mb-2 mt-1 ml-1">
+      <h1 id="title">{{ $t('home.happening') }}</h1>
+      <AddPost />
+    </v-row>
     <div v-for="post in posts" :key="post.id">
       <PostCard
         class="mb-4"
@@ -21,6 +24,7 @@
 import axios from 'axios';
 import { ref, onMounted, onUnmounted } from 'vue';
 import PostCard from '@/components/posts/PostCard.vue';
+import AddPost from '@/components/posts/AddPost.vue';
 
 const posts = ref([]);
 const skip = ref(0);

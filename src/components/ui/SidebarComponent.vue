@@ -25,11 +25,7 @@
         :title="$t('sidebar.popular')"
       ></v-list-item>
       <v-list-item
-        link
-        prepend-icon="mdi-map-search-outline"
-        :title="$t('sidebar.all')"
-      ></v-list-item>
-      <v-list-item
+      :to="{ name: 'Topics' }"
         v-if="authStore.isAuthenticated"
         prepend-icon="mdi-forum"
         :title="$t('sidebar.topic')"
