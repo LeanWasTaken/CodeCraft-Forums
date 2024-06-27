@@ -14,6 +14,7 @@ exports.getUserByUsername = async (req, res) => {
         fullname: true,
         createdAt: true,
         avatar_url: true,
+        banner_url: true,
         bio: true
       }
     });

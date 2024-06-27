@@ -2,22 +2,27 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const destPath = file.fieldname === 'avatar' ? 'avatars/' : 'banners/';
+    const baseDir = path.resolve(__dirname, '../../../public');
+    const destPath = file.fieldname === 'avatar' ? path.join(baseDir, 'avatars') : path.join(baseDir, 'banners');
+    
     if (!fs.existsSync(destPath)) {
       fs.mkdirSync(destPath, { recursive: true });
     }
+    console.log(`Destination path for ${file.fieldname}:`, destPath);
     cb(null, destPath);
   },
   filename: function (req, file, cb) {
     const userId = req.params.userId;
-    const fileName = `${userId}.png`;
+    const ext = path.extname(file.originalname);
+    const fileName = `${userId}${ext}`;
+    console.log(`File name for ${file.fieldname}:`, fileName);
     cb(null, fileName);
   },
 });
-
 const upload = multer({ storage: storage });
 
 exports.getUserSettings = async (req, res) => {
@@ -82,13 +87,23 @@ exports.updateUserImages = [
   async (req, res) => {
     const { userId } = req.params;
 
+    console.log(userId)
+
     try {
       const updateData = {};
       if (req.files['avatar']) {
-        updateData.avatar = `/avatars/${userId}.png`;
+        const avatarFile = req.files['avatar'][0];
+        const avatarExt = path.extname(avatarFile.originalname);
+        const avatarPath = `/avatars/${userId}${avatarExt}`;
+        updateData.avatar_url = avatarPath;
+        console.log(`Avatar uploaded to: ${avatarPath}`);
       }
       if (req.files['banner']) {
-        updateData.banner = `/banners/${userId}.png`;
+        const bannerFile = req.files['banner'][0];
+        const bannerExt = path.extname(bannerFile.originalname);
+        const bannerPath = `/banners/${userId}${bannerExt}`;
+        updateData.banner_url = bannerPath;
+        console.log(`Banner uploaded to: ${bannerPath}`);
       }
 
       const user = await prisma.users.update({
@@ -97,7 +112,8 @@ exports.updateUserImages = [
       });
       res.json({ message: 'Images updated successfully!', user });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to update images', message: error.message });
+      console.log(error)
+      res.status(200).json({ error: true, message: 'Failed to update images' });
     }
   }
 ];

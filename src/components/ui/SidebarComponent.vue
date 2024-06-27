@@ -4,7 +4,7 @@
       <v-list-item
         lines="two"
         v-if="authStore.isAuthenticated"
-        prepend-avatar="/assets/p-img/dog.jpeg"
+        :prepend-avatar="user.avatar_url"
         :subtitle="$t('sidebar.loggedin')"
         :title="authStore.user.name"
       ></v-list-item>
@@ -61,6 +61,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const authStore = useAuthStore();
+
+const user = authStore.user
 
 const logout = () => {
   authStore.logout();

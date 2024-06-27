@@ -8,6 +8,6 @@ router.get('/:id', settingsController.getUserSettings);
 
 router.patch('/', settingsController.updateUserSettings);
 
-router.post('/:id', settingsController.updateUserImages)
+router.post('/images/:userId', settingsController.updateUserImages)
 
 module.exports = router;

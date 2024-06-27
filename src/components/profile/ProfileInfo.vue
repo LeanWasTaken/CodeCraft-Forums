@@ -22,7 +22,7 @@
       <v-img
         class="align-end text-white"
         height="200"
-        src="https://i.pinimg.com/736x/57/87/39/578739480ca0069cceb40b5034dfb3c5.jpg"
+        :src="user.banner_url"
         cover
       >
         <v-avatar class="avatar" color="surface-variant" size="120">

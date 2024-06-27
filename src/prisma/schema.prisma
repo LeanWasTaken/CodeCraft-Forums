@@ -13,6 +13,7 @@ model Users {
   username                             String      @unique
   bio                                  String      @default("")
   avatar_url                           String      @default("")
+  banner_url                           String      @default("")
   email                                String      @unique
   password                             String
   lang                                 String      @default("en")

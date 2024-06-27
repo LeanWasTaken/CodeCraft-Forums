@@ -163,6 +163,8 @@ exports.loginUser = async (req, res, next) => {
         name: user.fullname,
         username: user.username,
         email: user.email,
+        avatar_url: user.avatar_url,
+        banner_url: user.banner_url
       },
     });
   })(req, res, next);
@@ -186,6 +188,8 @@ exports.getLoggedInUser = async (req, res) => {
           name: user.fullname,
           username: user.username,
           email: user.email,
+          avatar_url: user.avatar_url,
+          banner_url: user.banner_url
         },
       });
     }

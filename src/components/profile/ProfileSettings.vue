@@ -274,7 +274,7 @@ import router from '@/router';
           if (dialogs.value.images.bannerFile) {
             formData.append('banner', dialogs.value.images.bannerFile);
           }
-          response = await axios.post(`http://localhost:8008/api/users/images/${userId}`, formData, {
+          response = await axios.post(`http://localhost:8008/api/settings/images/${userId}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -292,7 +292,6 @@ import router from '@/router';
     } catch (error) {
       console.error('Error saving changes:', error);
     } finally {
-      console.log(response)
       if (response && response.data && response.data.error == true){
         snackbar.value.color = 'error'
         snackbar.value.message = response.data.message
