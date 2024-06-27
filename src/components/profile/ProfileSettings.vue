@@ -14,12 +14,12 @@
       </v-card>
 
       <v-dialog v-model="dialogs.password.opened" max-width="600px">
-        <v-card prepend-icon="mdi-lock-reset" title="Change Password">
+        <v-card prepend-icon="mdi-lock-reset" :title="$t('settings.password')">
           <v-card-text>
-            <v-text-field v-model="dialogs.password.currentPassword" label="Current password" type="password" required></v-text-field>
+            <v-text-field v-model="dialogs.password.currentPassword" :label="$t('settings.cur-password')" type="password" required></v-text-field>
 
-            <v-text-field v-model="dialogs.password.newPassword" label="New password" type="password" required></v-text-field>
-            <v-text-field v-model="dialogs.password.confirmPassword" label="Confirm password" type="password" required></v-text-field>
+            <v-text-field v-model="dialogs.password.newPassword" :label="$t('settings.new-password')" type="password" required></v-text-field>
+            <v-text-field v-model="dialogs.password.confirmPassword" :label="$t('settings.conf-password')" type="password" required></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -30,11 +30,11 @@
       </v-dialog>
   
       <v-dialog v-model="dialogs.email.opened" max-width="600px">
-        <v-card prepend-icon="mdi-email-outline" title="Change E-mail">
+        <v-card prepend-icon="mdi-email-outline" :title="$t('settings.email')">
           <v-card-text>
-            <v-text-field v-model="dialogs.email.currentPassword" label="Current password" type="password" required></v-text-field>
-            <v-text-field v-model="dialogs.email.currentEmail" label="Current e-mail" type="email" required></v-text-field>
-            <v-text-field v-model="dialogs.email.newEmail" label="New e-mail" type="email" required></v-text-field>
+            <v-text-field v-model="dialogs.email.currentPassword" :label="$t('settings.cur-password')" type="password" required></v-text-field>
+            <v-text-field v-model="dialogs.email.currentEmail" :label="$t('settings.old-email')" type="email" required></v-text-field>
+            <v-text-field v-model="dialogs.email.newEmail" :label="$t('settings.new-email')" type="email" required></v-text-field>
 
           </v-card-text>
           <v-card-actions>
@@ -46,10 +46,10 @@
       </v-dialog>
 
       <v-dialog v-model="dialogs.username.opened" max-width="600px">
-        <v-card prepend-icon="mdi-account-outline" title="Change username">
+        <v-card prepend-icon="mdi-account-outline" :title="$t('settings.username')">
           <v-card-text>
-            <v-text-field v-model="dialogs.username.currentPassword" label="Current password" type="password" required></v-text-field>
-            <v-text-field v-model="dialogs.username.newUsername" label="Jaunais lietotājvārds" type="email" required></v-text-field>
+            <v-text-field v-model="dialogs.username.currentPassword" :label="$t('settings.cur-password')" type="password" required></v-text-field>
+            <v-text-field v-model="dialogs.username.newUsername" :label="$t('settings.new-fullname')" type="text" required></v-text-field>
 
           </v-card-text>
           <v-card-actions>
@@ -61,10 +61,10 @@
       </v-dialog>
 
       <v-dialog v-model="dialogs.fullname.opened" max-width="600px">
-        <v-card prepend-icon="mdi-form-textbox" title="Change Full name">
+        <v-card prepend-icon="mdi-form-textbox" :title="$t('settings.fullname')">
           <v-card-text>
-            <v-text-field v-model="dialogs.fullname.currentPassword" label="Current password" type="password" required></v-text-field>
-            <v-text-field v-model="dialogs.fullname.newFullname" label="Jaunais vārds" type="email" required></v-text-field>
+            <v-text-field v-model="dialogs.fullname.currentPassword" :label="$t('settings.cur-password')" type="password" required></v-text-field>
+            <v-text-field v-model="dialogs.fullname.newFullname" :label="$t('settings.new-fullname')" type="email" required></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -75,12 +75,15 @@
       </v-dialog>
   
       <v-dialog v-model="dialogs.language.opened" max-width="600px">
-        <v-card prepend-icon="mdi-translate" title="Change Language">
+        <v-card prepend-icon="mdi-translate" :title="$t('settings.change-language')">
           <v-card-text>
             <v-autocomplete
             :items="items"
-            label="Language"
+            item-value="locale"
+            item-text="title"
+            :label="$t('settings.change-language')"
             auto-select-first
+            v-model="dialogs.language.selectedLang"
           >
           </v-autocomplete>
           </v-card-text>
@@ -93,10 +96,10 @@
       </v-dialog>
       
       <v-dialog v-model="dialogs.deactivate.opened" max-width="600px">
-        <v-card prepend-icon="mdi-heart-broken-outline" title="Deactivate Account">
+        <v-card prepend-icon="mdi-heart-broken-outline" :title="$t('settings.deactivate')">
           <v-card-text>
             <p>{{ $t('settings.deactivate-info') }}</p>
-            <v-text-field v-model="dialogs.deactivate.currentPassword" label="Password" type="password" required class="mt-5"></v-text-field>
+            <v-text-field v-model="dialogs.deactivate.currentPassword" :label="$t('settings.deactivate-password')" type="password" required class="mt-5"></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -129,8 +132,8 @@
     { title: 'English', locale: 'en' }
   ];
 
-  const changeLocale = (newLocale) => {
-    locale.value = newLocale;
+  const changeLocale = () => {
+    locale.value = dialogs.value.language.selectedLang
     dropdown.value = false;
   };
 
@@ -152,7 +155,8 @@
       currentPassword: ''
     },
     language:{
-      opened: false
+      opened: false,
+      selectedLang: ''
     },
     username: {
       opened: false,
@@ -209,6 +213,13 @@
             userPassword: dialogs.value[dialog].userPassword,
             newFullname: dialogs.value[dialog].newFullname,
           }); 
+          break;
+        case 'language':
+          await axios.patch(`http://localhost:8008/api/settings/`, {
+            userId: userId,
+            newLang: dialogs.value.language.selectedLang  
+          });
+          changeLocale()
           break;
         default:
           break;

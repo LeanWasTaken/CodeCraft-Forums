@@ -10,7 +10,12 @@
             <AddPost class="px-0 mx-1"/>
           </v-col>
           <v-col cols="2" v-if="showButtons">
-            <ProfileEdit class="px-0 mx-1"/>
+            <v-btn
+              class="text-none font-weight-regular"
+              prepend-icon="mdi-account"
+              variant="tonal"
+              @click="router.push('/profile/settings')"
+            >{{ $t('settings.settings') }}</v-btn>
           </v-col>
         </v-row>
       </v-card-title>
@@ -45,6 +50,10 @@
 <script setup>
 import { defineProps, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const authStore = useAuthStore()
 

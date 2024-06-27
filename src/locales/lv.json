@@ -35,7 +35,7 @@
       "name": "Vārds",
       "username": "Lietotājvārds",
       "bio": "Apraksts",
-      "save": "saglabāt"
+      "save": "Saglabāt"
   },
   "profile-info": {
       "views": "Skatījumi",
@@ -43,12 +43,14 @@
       "followers": "Sekotāji"
   },
   "settings": {
+      "settings": "Iestatījumi",
       "profile": "Jūsu profils",
       "info": "Apskatiet informāciju par savu kontu, mainiet savus datus vai uzziniet par konta deaktivizēšanas iespējām",
       "password": "Mainīt paroli",
       "email": "Mainīt e-pastu",
       "username": "Mainīt lietotājvārdu",
       "fullname": "Mainīt vārdu",
+      "new-fullname": "Jaunais vārds",
       "language": "Mainīt valodu",
       "deactivate": "Deaktivizēt kontu",
       "close": "Aizvert",

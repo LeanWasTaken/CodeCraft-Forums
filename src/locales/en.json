@@ -43,12 +43,14 @@
         "followers": "Followers"
     },
     "settings": {
+        "settings": "Settings",
         "profile": "Your profile",
         "info": "See information about your account, change your data, or learn about your account deactivation options",
         "password": "Change password",
         "email": "Change E-mail",
         "username": "Change username",
         "fullname": "Change name",
+        "new-fullname": "New name",
         "language": "Change language",
         "deactivate": "Deactivate your account",
         "close": "Close",

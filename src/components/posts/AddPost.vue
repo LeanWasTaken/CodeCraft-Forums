@@ -5,19 +5,19 @@
         <v-btn
           class="text-none font-weight-regular"
           prepend-icon="mdi-account"
-          text="Add Post"
+          :text="$t('createpost.createpost')"
           variant="tonal"
           v-bind="activatorProps"
         ></v-btn>
       </template>
 
-      <v-card prepend-icon="mdi-lead-pencil" title="Create a post!">
+      <v-card prepend-icon="mdi-lead-pencil" :label="$t('createpost.createpost')">
         <v-card-text>
-          <v-text-field v-model="title" label="Title" required></v-text-field>
+          <v-text-field v-model="title" :label="$t('createpost.title')" required></v-text-field>
           <v-autocomplete
             v-model="selectedTopic"
             :items="topicItems"
-            label="Topic"
+            :label="$t('createpost.topic')"
             item-text="name"
             item-value="name"
             auto-select-first
@@ -34,11 +34,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn text="Close" variant="plain" @click="dialog = false"></v-btn>
+          <v-btn :text="$t('createpost.close')" variant="plain" @click="dialog = false"></v-btn>
 
           <v-btn
             color="primary"
-            text="Submit"
+            :text="$t('createpost.create')"
             variant="tonal"
             @click="handleSubmit"
           ></v-btn>

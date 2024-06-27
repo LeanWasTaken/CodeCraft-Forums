@@ -31,18 +31,18 @@ exports.getUserSettings = async (req, res) => {
 
 exports.updateUserSettings = async (req, res) => {
     try {
-      const { id, lang } = req.body;
+      const { userId, newLang } = req.body;
   
-      if (!id) {
+      if (!userId) {
         return res.status(409).json({ message: 'No user provided.' });
       }
   
       const settings = await prisma.users.update({
         where: {
-            id: id
+            id: userId
           },
           data: {
-            lang: lang
+            lang: newLang
           },
       });
   
