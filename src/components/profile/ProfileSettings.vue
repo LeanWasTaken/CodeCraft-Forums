@@ -10,6 +10,7 @@
           <v-list-item @click="showDialog('fullname')" prepend-icon="mdi-form-textbox">{{ $t('settings.fullname') }}</v-list-item>
           <v-list-item @click="showDialog('language')" prepend-icon="mdi-translate">{{ $t('settings.language') }}</v-list-item>
           <v-list-item @click="showDialog('deactivate')" prepend-icon="mdi-heart-broken-outline">{{ $t('settings.deactivate') }}</v-list-item>
+          <v-list-item @click="showDialog('images')" prepend-icon="mdi-image-area">{{ $t('settings.images') }}</v-list-item>
         </v-list>
       </v-card>
 
@@ -109,6 +110,36 @@
         </v-card>
       </v-dialog>
 
+      <v-dialog v-model="dialogs.images.opened" max-width="600px">
+        <v-card prepend-icon="mdi-image-area" :title="$t('settings.images')">
+          <v-card-text>
+            <v-file-input v-model="dialogs.images.avatarFile" :label="$t('settings.avatar')" accept="image/*" required></v-file-input>
+            <v-file-input v-model="dialogs.images.bannerFile" :label="$t('settings.banner')" accept="image/*" required></v-file-input>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDialog('images')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('images')">{{ $t('settings.save') }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="dialogs.bio.opened" max-width="600px">
+        <v-card prepend-icon="mdi-information-outline" :title="$t('settings.bio')">
+          <v-card-text>
+            <v-textarea v-model="dialogs.bio.newBio" :label="$t('settings.new-bio')" required></v-textarea>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDialog('bio')">{{ $t('settings.close') }}</v-btn>
+            <v-btn color="blue darken-1" text @click="saveChanges('bio')">{{ $t('settings.save') }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-snackbar v-model="snackbar.show" :timeout="snackbar.timeout" :color="snackbar.color">
+        {{ snackbar.message }}
+      </v-snackbar>
     </v-container>
   </template>
   
@@ -118,6 +149,7 @@
   import axios from 'axios';
 
   import { useAuthStore } from '@/stores/auth';
+import router from '@/router';
 
   const authStore = useAuthStore()
 
@@ -136,6 +168,13 @@
     locale.value = dialogs.value.language.selectedLang
     dropdown.value = false;
   };
+
+  const snackbar = ref({
+    show: false,
+    message: '',
+    timeout: '2000',
+    color: 'success'
+  })
 
   const dialogs = ref({
     password: {
@@ -168,14 +207,14 @@
       currentPassword: '',
       newFullname: '',
     },
-    bio:{
-      opened: false,
-      currentPassword: '',
-      newBio: ''
+    bio: {
+    opened: false,
+    newBio: ''
     },
     images: {
       opened: false,
-      currentPassword: ''
+      avatarFile: null,
+      bannerFile: null
     }
   });
 
@@ -188,38 +227,63 @@
   };
 
   const saveChanges = async (dialog) => {
+    let response
+    const formData = new FormData();
     try {
       switch (dialog) {
         case 'password':
-          await axios.patch(`http://localhost:8008/api/users/password/${userId}`, {
+          response = await axios.patch(`http://localhost:8008/api/users/password/${userId}`, {
             currentPassword: dialogs.value[dialog].currentPassword,
             newPassword: dialogs.value[dialog].newPassword,
           });
           break;
         case 'email':
-          await axios.patch(`http://localhost:8008/api/users/email/${userId}`, {
+        response = await axios.patch(`http://localhost:8008/api/users/email/${userId}`, {
             userPassword: dialogs.value[dialog].currentPassword,
             newEmail: dialogs.value[dialog].newEmail,
           });
           break;
         case 'username':
-          await axios.patch(`http://localhost:8008/api/users/username/${userId}`, {
+        response = await axios.patch(`http://localhost:8008/api/users/username/${userId}`, {
             currentPassword: dialogs.value[dialog].currentPassword,
             newUsername: dialogs.value[dialog].newUsername,
           });
           break;
         case 'fullname':
-          await axios.patch(`http://localhost:8008/api/users/fullname/${userId}`, {
-            userPassword: dialogs.value[dialog].userPassword,
+        response = await axios.patch(`http://localhost:8008/api/users/fullname/${userId}`, {
+            userPassword: dialogs.value[dialog].currentPassword,
             newFullname: dialogs.value[dialog].newFullname,
           }); 
           break;
         case 'language':
-          await axios.patch(`http://localhost:8008/api/settings/`, {
+        response = await axios.patch(`http://localhost:8008/api/settings/`, {
             userId: userId,
             newLang: dialogs.value.language.selectedLang  
           });
           changeLocale()
+          break;
+        case 'deactivate':
+          response = await axios.delete(`http://localhost:8008/api/users/deactivate/${userId}/${dialogs.value.deactivate.currentPassword}`);
+          router.push('/auth/login')
+          break;
+
+        case 'images':
+          if (dialogs.value.images.avatarFile) {
+            formData.append('avatar', dialogs.value.images.avatarFile);
+          }
+          if (dialogs.value.images.bannerFile) {
+            formData.append('banner', dialogs.value.images.bannerFile);
+          }
+          response = await axios.post(`http://localhost:8008/api/users/images/${userId}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+          break;
+        case 'bio':
+          response = await axios.patch(`http://localhost:8008/api/users/bio/${userId}`, {
+            newBio: dialogs.value[dialog].newBio
+          });
           break;
         default:
           break;
@@ -227,7 +291,16 @@
       closeDialog(dialog);
     } catch (error) {
       console.error('Error saving changes:', error);
-      alert("Notika kļūda veicot pieprasījumu.")
+    } finally {
+      console.log(response)
+      if (response && response.data && response.data.error == true){
+        snackbar.value.color = 'error'
+        snackbar.value.message = response.data.message
+        snackbar.value.show = true
+      } else (
+        snackbar.value.message = response.data.message,
+        snackbar.value.show = true
+      )
     }
   };
 </script>

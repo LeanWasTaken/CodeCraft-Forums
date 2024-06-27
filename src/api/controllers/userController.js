@@ -25,7 +25,7 @@ exports.getUserByUsername = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: "Something happened that shouldn't have happened..."});
+    res.status(500).json({ error: true, message: "Something happened that shouldn't have happened..."});
   }
 }
 
@@ -42,7 +42,7 @@ exports.getUserById = async (req, res) => {
             id: true
         }});
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(200).json({ error: true, message: 'User not found' });
     }
     res.json(user);
   } catch (error) {
@@ -56,7 +56,7 @@ exports.updateUsername = async (req, res) => {
   const { currentPassword, newUsername } = req.body;
 
   if (!currentPassword || !newUsername) {
-    return res.status(400).json({ error: true, message: "Trūkst obligāto lauku." });
+    return res.status(200).json({ error: true, message: "Trūkst obligāto lauku." });
   }
 
   try {
@@ -66,13 +66,13 @@ exports.updateUsername = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: true, message: "Lietotājs nav atrasts." });
+      return res.status(200).json({ error: true, message: "Lietotājs nav atrasts." });
     }
 
     const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ error: true, message: "Nepareiza parole." });
+      return res.status(200).json({ error: true, message: "Nepareiza parole." });
     }
 
     const usernameTaken = await prisma.users.findUnique({
@@ -80,7 +80,7 @@ exports.updateUsername = async (req, res) => {
     });
 
     if (usernameTaken) {
-      return res.status(409).json({ error: true, message: "Lietotājvārds jau ir aizņemts." });
+      return res.status(200).json({ error: true, message: "Lietotājvārds jau ir aizņemts." });
     }
 
     await prisma.users.update({
@@ -99,8 +99,10 @@ exports.updateFullname = async (req, res) => {
   const { userId } = req.params;
   const { userPassword, newFullname } = req.body;
 
+  console.log(req.body)
+
   if (!userPassword || !newFullname) {
-    return res.status(400).json({ error: true, message: "Trūkst obligāto lauku." });
+    return res.status(200).json({ error: true, message: "Trūkst obligāto lauku." });
   }
 
   try {
@@ -110,13 +112,13 @@ exports.updateFullname = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: true, message: "Lietotājs nav atrasts." });
+      return res.status(200).json({ error: true, message: "Lietotājs nav atrasts." });
     }
 
     const isPasswordValid = await bcrypt.compare(userPassword, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ error: true, message: "Nepareiza parole." });
+      return res.status(200).json({ error: true, message: "Nepareiza parole." });
     }
 
     await prisma.users.update({
@@ -136,7 +138,7 @@ exports.updateEmail = async (req, res) => {
   const { userPassword, newEmail } = req.body;
 
   if (!userPassword || !newEmail) {
-    return res.status(400).json({ error: true, message: "Trūkst obligāto lauku." });
+    return res.status(200).json({ error: true, message: "Trūkst obligāto lauku." });
   }
 
   try {
@@ -146,13 +148,13 @@ exports.updateEmail = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: true, message: "Lietotājs nav atrasts." });
+      return res.status(200).json({ error: true, message: "Lietotājs nav atrasts." });
     }
 
     const isPasswordValid = await bcrypt.compare(userPassword, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ error: true, message: "Nepareiza parole." });
+      return res.status(200).json({ error: true, message: "Nepareiza parole." });
     }
 
     await prisma.users.update({
@@ -172,7 +174,7 @@ exports.updatePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
   if (!currentPassword || !newPassword) {
-    return res.status(400).json({ error: true, message: "Trūkst obligāto lauku." });
+    return res.status(200).json({ error: true, message: "Trūkst obligāto lauku." });
   }
 
   try {
@@ -182,13 +184,13 @@ exports.updatePassword = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: true, message: "Lietotājs nav atrasts." });
+      return res.status(200).json({ error: true, message: "Lietotājs nav atrasts." });
     }
 
     const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ error: true, message: "Nepareiza esošā parole." });
+      return res.status(200).json({ error: true, message: "Nepareiza esošā parole." });
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -203,4 +205,40 @@ exports.updatePassword = async (req, res) => {
     res.status(500).json({ error: true, message: error.message });
   }
 };
+
+//Deletes a user
+exports.deleteUser = async (req, res) => {
+  const { currentPassword, userId } = req.params  ;
+
+  if (!currentPassword || !userId) {
+    return res.status(200).json({ error: true, message: "Trūkst obligāto lauku." });
+  }
+
+  try {
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
+      select: { id: true, password: true }
+    });
+
+    if (!user) {
+      return res.status(200).json({ error: true, message: "Lietotājs nav atrasts." });
+    }
+
+    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(200).json({ error: true, message: "Nepareiza esošā parole." });
+    }
+
+    await prisma.users.delete({
+      where: { id: userId },
+    });
+
+    res.status(200).json({ error: false, message: "Parole veiksmīgi dzēsts." });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error.message });
+  }
+};
+
+
 

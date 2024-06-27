@@ -180,16 +180,29 @@ const currentTitle = computed(() => {
 
 const currentStep = computed(() => step.value);
 
+function getAvatarUrl() {
+  const avatars = [
+    '/default_avatar/dog.jpeg',
+    '/default_avatar/lizard.jpeg'
+  ];
+  const randomIndex = Math.floor(Math.random() * avatars.length);
+  return avatars[randomIndex];
+}
+
+
+
 async function registerUser() {
   loading.value = true;
   error.value = null;
 
   try {
+    let avatarUrl = getAvatarUrl();
     const response = await axios.post('http://localhost:8008/api/auth/register', {
       email: state.email,
       password: state.password,
       fullname: state.fullname,
       username: state.username,
+      avatar_url: avatarUrl.toString()
     });
 
     if (response.status === 200) {

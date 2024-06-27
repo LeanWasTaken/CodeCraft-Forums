@@ -20,4 +20,7 @@ router.patch('/email/:userId', userController.updateEmail);
 // Update password
 router.patch('/password/:userId', userController.updatePassword);
 
+// Delete user account
+router.delete('/deactivate/:userId/:currentPassword', userController.deleteUser)
+
 module.exports = router;

@@ -87,7 +87,7 @@ passport.use(
 
 exports.registerUser = async (req, res) => {
   try {
-    let { password, email, fullname, username } = req.body;
+    let { password, email, fullname, username, avatar_url } = req.body;
     console.log(req.body)
     if (!email || !password || !fullname || !username) {
       return res.send({
@@ -119,6 +119,7 @@ exports.registerUser = async (req, res) => {
         password: hash,
         fullname: fullname,
         username: username,
+        avatar_url: avatar_url
       },
     });
     if (newUser) {
