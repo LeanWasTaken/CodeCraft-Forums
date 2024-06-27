@@ -12,6 +12,8 @@ router.get('/user/:id', postController.getPosts);
 // Iegūst postu ar specifisku ID
 router.get('/:id', postController.getPostById)
 
+router.get('/topic/:id', postController.getPostByTopicId);
+
 // Izveido jaunu post
 router.post('/', postController.createPost);
 

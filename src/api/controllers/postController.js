@@ -75,6 +75,40 @@ exports.getPostById = async (req, res) => {
   }
 }
 
+exports.getPostByTopicId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(409).json({ message: 'No ID provided.' });
+    }
+
+    const post = await prisma.posts.findMany({
+      where: {
+        topicId: id
+      },
+      include: {
+        author: {
+          select: {
+            fullname: true,
+            username: true,
+            avatar_url: true
+          }
+        }
+      },
+    });
+
+    if (post) {
+      return res.status(201).json(post);
+    } else {
+      return res.status(404).json({ message: "No posts found."})
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 exports.getLatestPosts = async (req, res) => {
   try {
 

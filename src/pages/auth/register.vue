@@ -23,6 +23,7 @@
                   :success="!v$.fullname?.$pending && v$.fullname?.$dirty"
                 ></v-text-field>
                 <v-text-field
+                  :rules="usernameRules"
                   v-model="state.username"
                   label="Username"
                   placeholder="Janiszarins3"
@@ -150,6 +151,11 @@ const v$ = useVuelidate(rules, state);
 const fullnameRules = [
   value => !!value || 'Full name is required',
   value => value.length >= 3 || 'Full name must be at least 3 characters long',
+];
+
+const usernameRules = [
+  value => !!value || 'User name is required',
+  value => value.length >= 1 || 'Full name must be at least 1 characters long',
 ];
 
 const emailRules = [

@@ -34,7 +34,7 @@ model Topics {
 model Posts {
   id        String     @id @default(uuid())
   title     String     @db.VarChar(100)
-  content   String     @db.VarChar(2500)
+  content   String     @db.VarChar(10000)
   type      PostType
   createdAt DateTime   @default(now())
   authorId  String
