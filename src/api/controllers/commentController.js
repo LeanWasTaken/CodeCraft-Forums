@@ -113,3 +113,34 @@ exports.getCommentsCountByPostId = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+exports.getCommentsByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const comments = await prisma.comments.findMany({
+      where: {
+        authorId: userId
+      },
+      include: {
+        post: {
+          select: {
+            id: true,
+            title: true
+          }
+        },
+        author: {
+          select: {
+            username: true,
+            fullname: true,
+            avatar_url: true
+          }
+        }
+      }
+    });
+    if(comments) {
+      return res.status(200).json(comments)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

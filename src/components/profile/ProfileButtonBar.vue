@@ -28,7 +28,22 @@
             
           </v-tabs-window-item>
 
-          <v-tabs-window-item value="2"> Two </v-tabs-window-item>
+          <v-tabs-window-item value="2">
+            <div v-if="replies.length >= 1">
+                <ReplyCard
+                  class="mb-2"
+                  v-for="reply in replies"
+                  :key="reply.id"
+                  :id="reply.post.id"
+                  :name="reply.author.fullname"
+                  :username="reply.author.username"
+                  :avatar="reply.author.avatar_url"
+                  :title="reply.title"
+                  :subtitle="reply.post.title"
+                  :content="reply.content"
+                  />
+            </div>
+          </v-tabs-window-item>
 
           <v-tabs-window-item value="3"> Three </v-tabs-window-item>
         </v-tabs-window>
@@ -42,6 +57,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { defineProps } from 'vue';
 import PostCard from '@/components/posts/PostCard.vue';
+import ReplyCard from '@/components/posts/ReplyCard.vue'
 
 const props = defineProps({
   user: Object,
@@ -50,6 +66,7 @@ const props = defineProps({
 
 const tab = ref('1');
 const posts = ref([]);
+const replies = ref([])
 
 const fetchPosts = async () => {
   let userId = props.user.id;
@@ -61,7 +78,18 @@ const fetchPosts = async () => {
   }
 };
 
+const fetchReplies = async () => {
+  let userId = props.user.id;
+  try {
+    const response = await axios.get(`http://localhost:8008/api/comments/user/${userId}`);
+    replies.value = response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 if(props.user){
   fetchPosts()
+  fetchReplies()
 }
 </script>

@@ -14,4 +14,6 @@ router.get('/:postId', commentController.getCommentsByPostId);
 // Gets comment count by post ID
 router.get('/count/:postId', commentController.getCommentsCountByPostId);
 
+router.get('/user/:userId', commentController.getCommentsByUserId);
+
 module.exports = router;
