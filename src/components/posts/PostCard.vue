@@ -26,7 +26,7 @@
       </div>
       <v-card-actions v-if="!dont_show" class="comment-actions">
         <v-btn class="reply" @click="showAddReply()" prepend-icon="mdi-message-reply-outline">Reply</v-btn>
-        <v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>
+        <!--<v-btn class="like" @click="like" prepend-icon="mdi-heart-outline">Like</v-btn>-->
       </v-card-actions>
       <AddReply :id="props.id" v-if="showReplyCard" @close="showAddReply = false"><v-btn @click="showAddReply()">Cancel</v-btn></AddReply>
     </v-card>

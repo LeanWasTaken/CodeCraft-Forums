@@ -2,7 +2,7 @@
   <div class="todays-feed">
     <v-row justify="space-between" class="mb-2 mt-1 ml-1">
       <h1 id="title">{{ $t('home.happening') }}</h1>
-      <AddPost />
+      <AddPost v-if="authStore.isAuthenticated"/>
     </v-row>
     <div v-for="post in posts" :key="post.id">
       <PostCard
@@ -25,6 +25,10 @@ import axios from 'axios';
 import { ref, onMounted, onUnmounted } from 'vue';
 import PostCard from '@/components/posts/PostCard.vue';
 import AddPost from '@/components/posts/AddPost.vue';
+
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore()
 
 const posts = ref([]);
 const skip = ref(0);

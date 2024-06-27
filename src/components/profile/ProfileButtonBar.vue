@@ -4,7 +4,7 @@
       <v-tabs v-model="tab" grow>
         <v-tab value="1">{{ $t('profile-button-bar.posts') }}</v-tab>
         <v-tab value="2">{{ $t('profile-button-bar.replies') }}</v-tab>
-        <v-tab value="3">{{ $t('profile-button-bar.likes') }}</v-tab>
+        <!--<v-tab value="3">{{ $t('profile-button-bar.likes') }}</v-tab>-->
       </v-tabs>
 
       <v-card-text>
@@ -45,7 +45,7 @@
             </div>
           </v-tabs-window-item>
 
-          <v-tabs-window-item value="3"> Three </v-tabs-window-item>
+          <!---<v-tabs-window-item value="3"> Three </v-tabs-window-item>-->
         </v-tabs-window>
       </v-card-text>
     </v-card>
