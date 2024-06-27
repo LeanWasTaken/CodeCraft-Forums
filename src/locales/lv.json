@@ -80,7 +80,10 @@
   },
   "home": {
       "welcome": "Laipni lūdzam",
-      "happening": "Pašlaik notiek"
+      "happening": "Pašlaik notiek",
+      "loading": "Notiek ielādē...",
+        "no-posts": "Nav ierakstu, lai ielādēt. ",
+        "back": "Atpakaļ"
   },
   "fyp": {
       "trending": "Šodienas tendences:"

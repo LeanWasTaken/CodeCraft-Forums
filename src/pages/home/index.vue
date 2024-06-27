@@ -1,6 +1,6 @@
 <template>
   <div class="todays-feed">
-    <h1 id="title">Today's Feed</h1>
+    <h1 id="title">{{ $t('home.happening') }}</h1>
     <div v-for="post in posts" :key="post.id">
       <PostCard
         class="mb-4"
@@ -12,8 +12,8 @@
         :content="post.content"
       />
     </div>
-    <div v-if="loading" class="loading">Loading...</div>
-    <div v-if="allLoaded" class="end-of-feed">No more posts to load. <span style="cursor: pointer" @click="scrollToTop">Back to top</span></div>
+    <div v-if="loading" class="loading">{{ $t('home.loading') }}</div>
+    <div v-if="allLoaded" class="end-of-feed">{{ $t('home.no-posts') }}<span style="cursor: pointer" @click="scrollToTop">{{ $t('home.back') }}</span></div>
   </div>
 </template>
 

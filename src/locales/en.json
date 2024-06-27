@@ -80,7 +80,10 @@
     },
     "home": {
         "welcome": "Welcome to",
-        "happening": "What's currently happening"
+        "happening": "What's currently happening",
+        "loading": "Loading...",
+        "no-posts": "No more posts to load. ",
+        "back": "Back to top"
     },
     "fyp": {
         "tending": "Trending Today:"
