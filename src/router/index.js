@@ -65,7 +65,7 @@ const routes = [
   },
   {
     path: '/profile',
-    component: DefaultLayout,
+    component: HomeLayout,
     children: [
       {
         path: '',

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-layout class="sidebar-layout rounded-md">
+    <v-layout class="sidebar-layout rounded-md mb-1">
       <NavbarComponent />
       <SideBar>
         <v-main>
@@ -8,6 +8,8 @@
         </v-main>
       </SideBar>
     </v-layout>
+    <AppFooter />
+    
   </v-app>
 </template>
 

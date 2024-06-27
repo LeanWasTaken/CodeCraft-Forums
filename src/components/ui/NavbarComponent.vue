@@ -33,7 +33,7 @@ const navigateToProfile = () => {
 
 const logout = () => {
   authStore.logout();
-  router.push({ name: 'Home' });
+  router.push('/');
 };
 </script>
 

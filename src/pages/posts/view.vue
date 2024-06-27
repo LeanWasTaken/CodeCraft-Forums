@@ -7,8 +7,6 @@
       class="my-4"
     ></v-progress-circular>
 
-    {{ post }}
-
     <PostCard
       class="mb-4"
       v-if="post"
@@ -24,7 +22,7 @@
 
     <div v-if="comments.length">
       <template v-for="comment in topLevelComments" :key="comment.id">
-        <div class="mb-4" style="border: solid 1px lightgray; border-radius: 8px">
+        <div class="mb-4" style="background-color: rgb(250, 250, 250);">
         <CommentCard
           :commentId="comment.id"
           :postId="post.id"
@@ -36,8 +34,8 @@
           
           
         />
-
         <template v-for="reply in getReplies(comment.id)" :key="reply.id">
+          
           <CommentCard
             :commentId="reply.id"
             :postId="post.id"
@@ -82,9 +80,10 @@ const fetchPostAndComments = async () => {
       axios.get(`http://localhost:8008/api/comments/${postId}`)
     ]);
 
-    if (postResponse.data.length > 0) {
-      post.value = postResponse.data[0];
-      console.log(post.value)
+    console.log(commentsResponse.data)
+    if (postResponse.data) {
+      post.value = postResponse.data;
+      
     } else {
       error.value = 'Post not found';
     }
@@ -102,20 +101,14 @@ onMounted(() => {
   fetchPostAndComments();
 });
 
-// Computed property to filter top-level comments
 const topLevelComments = computed(() => {
   return comments.value.filter(comment => comment.parentId === null);
 });
 
-// Method to get replies for a specific comment
 const getReplies = (parentId) => {
   return comments.value.filter(comment => comment.parentId === parentId);
 };
 
-// Method to get replies for a specific comment
-const getReplies = (parentId) => {
-  return comments.value.filter(comment => comment.parentId === parentId);
-};
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -4,7 +4,7 @@
       <div class="text-body-1 font-weight-light mb-n1">{{ $t('registration.welcome') }}</div>
       <h1 class="text-h4 font-weight-bold">CodeCraft</h1>
 
-      <v-row class="content d-flex align-center justify-center">
+      <v-row class="content d-flex align-center justify-center mt-4">
         <v-card max-width="800" min-width="400" elevation="4">
           <v-card-title class="text-h6 font-weight-regular justify-space-between">
             <span>{{ currentTitle }}</span>
