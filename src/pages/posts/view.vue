@@ -7,6 +7,8 @@
       class="my-4"
     ></v-progress-circular>
 
+    {{ post }}
+
     <PostCard
       class="mb-4"
       v-if="post"
@@ -21,9 +23,8 @@
     <h2>Komentāri</h2>
 
     <div v-if="comments.length">
-      <!-- Render top-level comments -->
       <template v-for="comment in topLevelComments" :key="comment.id">
-        <div style="border: solid 1px gray">
+        <div class="mb-4" style="border: solid 1px lightgray; border-radius: 8px">
         <CommentCard
           :commentId="comment.id"
           :postId="post.id"
@@ -33,9 +34,9 @@
           :content="comment.content"
           class="mb-4"
           
+          
         />
 
-        <!-- Render replies for each top-level comment -->
         <template v-for="reply in getReplies(comment.id)" :key="reply.id">
           <CommentCard
             :commentId="reply.id"
@@ -47,7 +48,7 @@
             class="ml-4 mb-4"
           />
         </template>
-        </div>
+      </div>
       </template>
       
     </div>
@@ -83,6 +84,7 @@ const fetchPostAndComments = async () => {
 
     if (postResponse.data.length > 0) {
       post.value = postResponse.data[0];
+      console.log(post.value)
     } else {
       error.value = 'Post not found';
     }
@@ -104,6 +106,11 @@ onMounted(() => {
 const topLevelComments = computed(() => {
   return comments.value.filter(comment => comment.parentId === null);
 });
+
+// Method to get replies for a specific comment
+const getReplies = (parentId) => {
+  return comments.value.filter(comment => comment.parentId === parentId);
+};
 
 // Method to get replies for a specific comment
 const getReplies = (parentId) => {
