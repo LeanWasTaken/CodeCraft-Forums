@@ -75,6 +75,7 @@
         "popular": "Popular",
         "all": "All",
         "settings": "Settings",
+        "topic": "Topics",
         "logout": "Log out"
     },
     "home": {
